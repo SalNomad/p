@@ -1,0 +1,1039 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ريتال | أذكار اليوم</title>
+  <style>
+    :root {
+      --bg: #08152f;
+      --bg-soft: #0e2347;
+      --panel: rgba(18, 37, 76, 0.92);
+      --panel-2: rgba(31, 57, 111, 0.9);
+      --card: rgba(20, 35, 72, 0.96);
+      --line: rgba(156, 185, 255, 0.18);
+      --text: #eef4ff;
+      --muted: #9fb0d7;
+      --primary: #4f8cff;
+      --primary-2: #8bb2ff;
+      --gold: #d8b24b;
+      --success: #2ac769;
+      --danger: #ff6b6b;
+      --shadow: 0 14px 44px rgba(0, 0, 0, 0.28);
+      --radius: 24px;
+      --font-scale: 1;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background:
+        radial-gradient(circle at top, rgba(73, 119, 255, 0.18), transparent 30%),
+        linear-gradient(180deg, #0b1e45 0%, #071327 45%, #061024 100%);
+      color: var(--text);
+      font-family: "Tahoma", "Segoe UI", "Arial", sans-serif;
+      font-size: calc(16px * var(--font-scale));
+      min-height: 100vh;
+    }
+
+    .container {
+      width: min(1180px, calc(100% - 28px));
+      margin: 0 auto;
+      padding: 22px 0 44px;
+    }
+
+    .hero {
+      background: linear-gradient(180deg, rgba(20, 53, 120, 0.9), rgba(12, 34, 77, 0.88));
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow);
+      border-radius: 32px;
+      padding: 24px;
+      position: sticky;
+      top: 12px;
+      z-index: 20;
+      backdrop-filter: blur(18px);
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .brand-mark {
+      width: 62px;
+      height: 62px;
+      display: grid;
+      place-items: center;
+      border-radius: 18px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+      font-size: 1.8rem;
+    }
+
+    .brand h1 {
+      margin: 0;
+      font-size: clamp(1.8rem, 3.5vw, 3rem);
+      letter-spacing: 0.3px;
+    }
+
+    .brand p {
+      margin: 6px 0 0;
+      color: var(--muted);
+      font-size: 0.98rem;
+    }
+
+    .tools {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .icon-btn,
+    .ghost-btn,
+    .action-btn,
+    .tab-btn,
+    .mini-btn {
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(255,255,255,0.06);
+      color: var(--text);
+      border-radius: 16px;
+      cursor: pointer;
+      transition: 0.2s ease;
+    }
+
+    .icon-btn {
+      min-width: 46px;
+      height: 46px;
+      font-size: 1.15rem;
+    }
+
+    .ghost-btn,
+    .action-btn,
+    .mini-btn {
+      padding: 12px 16px;
+      font-weight: 700;
+    }
+
+    .icon-btn:hover,
+    .ghost-btn:hover,
+    .action-btn:hover,
+    .tab-btn:hover,
+    .mini-btn:hover {
+      transform: translateY(-1px);
+      border-color: rgba(255,255,255,0.22);
+      background: rgba(255,255,255,0.1);
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    .stat {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      padding: 14px 16px;
+      min-height: 88px;
+    }
+
+    .stat-label {
+      color: var(--muted);
+      font-size: 0.92rem;
+      margin-bottom: 10px;
+    }
+
+    .stat strong {
+      font-size: clamp(1.15rem, 2vw, 1.5rem);
+    }
+
+    .progress-wrap {
+      margin-top: 14px;
+      background: rgba(255,255,255,0.06);
+      border-radius: 999px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.09);
+      height: 13px;
+    }
+
+    .progress-bar {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--primary), #6ea4ff, #a4c3ff);
+      transition: width 0.25s ease;
+      border-radius: inherit;
+    }
+
+    .intro {
+      margin-top: 22px;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 22px;
+      box-shadow: var(--shadow);
+      line-height: 2;
+      color: #dbe6ff;
+    }
+
+    .section {
+      margin-top: 24px;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .section-head {
+      padding: 18px 18px 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .section-head h2 {
+      margin: 0;
+      font-size: 1.25rem;
+    }
+
+    .tabs {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 12px;
+      padding: 0 18px 18px;
+    }
+
+    .tab-btn {
+      padding: 18px 14px;
+      text-align: center;
+      border-radius: 22px;
+      background: rgba(255,255,255,0.05);
+      color: var(--text);
+      font-weight: 800;
+      min-height: 86px;
+      line-height: 1.7;
+    }
+
+    .tab-btn small {
+      display: block;
+      font-weight: 500;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+
+    .tab-btn.active {
+      background: linear-gradient(180deg, rgba(86, 135, 255, 0.3), rgba(43, 81, 171, 0.28));
+      border-color: rgba(146, 185, 255, 0.45);
+      box-shadow: inset 0 -3px 0 rgba(114, 165, 255, 0.95);
+    }
+
+    .tab-btn.coming {
+      opacity: 0.65;
+    }
+
+    .controls {
+      display: flex;
+      gap: 12px;
+      padding: 0 18px 18px;
+      flex-wrap: wrap;
+    }
+
+    .search-wrap {
+      position: relative;
+      flex: 1 1 320px;
+    }
+
+    .search-wrap input {
+      width: 100%;
+      background: rgba(255,255,255,0.04);
+      color: var(--text);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 16px 18px;
+      padding-inline-start: 48px;
+      font-size: 1rem;
+      outline: none;
+    }
+
+    .search-wrap::before {
+      content: "⌕";
+      position: absolute;
+      right: 16px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--muted);
+      font-size: 1.3rem;
+    }
+
+    .switch {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 10px 14px;
+      white-space: nowrap;
+    }
+
+    .switch input { accent-color: var(--primary); }
+
+    .grid {
+      display: grid;
+      gap: 18px;
+      padding: 0 18px 22px;
+    }
+
+    .card {
+      background: linear-gradient(180deg, rgba(28, 46, 91, 0.98), rgba(18, 32, 68, 0.98));
+      border: 1px solid rgba(164, 188, 255, 0.13);
+      border-radius: 26px;
+      padding: 20px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::after {
+      content: "";
+      position: absolute;
+      inset: auto auto -80px -40px;
+      width: 180px;
+      height: 180px;
+      background: radial-gradient(circle, rgba(79, 140, 255, 0.16), transparent 65%);
+      pointer-events: none;
+    }
+
+    .card-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 14px;
+    }
+
+    .count-pill {
+      min-width: 70px;
+      background: linear-gradient(180deg, #3d79f1, #245cd1);
+      border-radius: 22px;
+      padding: 10px 12px;
+      text-align: center;
+      box-shadow: 0 12px 24px rgba(36, 92, 209, 0.28);
+      font-weight: 800;
+    }
+
+    .count-pill span {
+      display: block;
+      font-size: 0.82rem;
+      opacity: 0.9;
+      margin-bottom: 2px;
+    }
+
+    .title-block h3 {
+      margin: 0;
+      font-size: 1.12rem;
+    }
+
+    .meta {
+      margin-top: 8px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 7px 12px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.06);
+      color: #d8e4ff;
+      border: 1px solid rgba(255,255,255,0.08);
+      font-size: 0.9rem;
+    }
+
+    .chip.gold {
+      background: rgba(216, 178, 75, 0.14);
+      color: #ffe39b;
+      border-color: rgba(216, 178, 75, 0.22);
+    }
+
+    .chip.success {
+      background: rgba(42, 199, 105, 0.12);
+      color: #92f0b5;
+      border-color: rgba(42, 199, 105, 0.18);
+    }
+
+    .zikr-text {
+      margin: 18px 0 16px;
+      padding: 18px;
+      border-radius: 20px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      line-height: 2.25;
+      font-size: clamp(1.2rem, 2vw, 1.85rem);
+      font-family: "Traditional Arabic", "Tahoma", serif;
+      color: #f6f9ff;
+      text-wrap: pretty;
+    }
+
+    .benefit {
+      padding: 14px 16px;
+      border-radius: 18px;
+      background: rgba(216, 178, 75, 0.15);
+      border: 1px solid rgba(216, 178, 75, 0.22);
+      color: #ffe39b;
+      line-height: 1.9;
+      margin-bottom: 14px;
+    }
+
+    .actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .actions-right,
+    .actions-left {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .action-btn.primary {
+      background: linear-gradient(180deg, #5e99ff, #2e68df);
+      border-color: rgba(255,255,255,0.12);
+    }
+
+    .action-btn.success {
+      background: linear-gradient(180deg, #3dcb7a, #20a95f);
+      border-color: rgba(255,255,255,0.12);
+    }
+
+    .empty {
+      padding: 28px 18px 22px;
+      text-align: center;
+      color: var(--muted);
+    }
+
+    .footer {
+      margin: 24px auto 0;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      padding: 18px 20px;
+      color: var(--muted);
+      line-height: 1.9;
+      text-align: center;
+    }
+
+    .toast {
+      position: fixed;
+      inset: auto 18px 18px auto;
+      background: rgba(10, 20, 44, 0.96);
+      border: 1px solid rgba(255,255,255,0.12);
+      color: var(--text);
+      padding: 14px 18px;
+      border-radius: 16px;
+      box-shadow: var(--shadow);
+      transform: translateY(20px);
+      opacity: 0;
+      pointer-events: none;
+      transition: 0.25s ease;
+      z-index: 50;
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (max-width: 980px) {
+      .stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .tabs { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+
+    @media (max-width: 640px) {
+      .container { width: min(100% - 16px, 1180px); }
+      .hero { padding: 18px; border-radius: 24px; }
+      .brand-mark { width: 54px; height: 54px; }
+      .stats { grid-template-columns: 1fr; }
+      .tabs { grid-template-columns: 1fr; }
+      .actions { flex-direction: column; align-items: stretch; }
+      .actions-left, .actions-right { width: 100%; }
+      .actions-left > *, .actions-right > * { flex: 1 1 auto; }
+      .card-top { flex-direction: column; }
+      .count-pill { align-self: flex-start; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header class="hero">
+      <div class="topbar">
+        <div class="brand">
+          <div class="brand-mark">🤲</div>
+          <div>
+            <h1>ريتال</h1>
+            <p>رفيقك اليومي للأذكار — تصميم هادئ، عدّاد ذكي، وحفظ تلقائي للتقدّم.</p>
+          </div>
+        </div>
+
+        <div class="tools">
+          <button class="icon-btn" id="increaseFont" title="تكبير الخط">＋</button>
+          <button class="icon-btn" id="decreaseFont" title="تصغير الخط">－</button>
+          <button class="ghost-btn" id="toggleAuto">الوضع التلقائي</button>
+          <button class="ghost-btn" id="resetToday">إعادة عداد اليوم</button>
+        </div>
+      </div>
+
+      <div class="stats">
+        <div class="stat">
+          <div class="stat-label">الفترة الحالية</div>
+          <strong id="currentModeLabel">—</strong>
+        </div>
+        <div class="stat">
+          <div class="stat-label">التاريخ اليوم</div>
+          <strong id="todayLabel">—</strong>
+        </div>
+        <div class="stat">
+          <div class="stat-label">عدد الأذكار المكتملة</div>
+          <strong id="completedLabel">0</strong>
+        </div>
+        <div class="stat">
+          <div class="stat-label">نسبة الإنجاز</div>
+          <strong id="progressLabel">0%</strong>
+        </div>
+      </div>
+      <div class="progress-wrap"><div class="progress-bar" id="progressBar"></div></div>
+    </header>
+
+    <section class="intro">
+      الأذكار تشكّل جزءًا أساسيًا من العبادة للمسلم، وهي وسيلة للتقرّب إلى الله سبحانه وتعالى والمحافظة على ذكره في كل الأوقات.
+      في هذه النسخة الأولى من <strong>ريتال</strong> ستجد أذكار الصباح والمساء والنوم مع العدّاد، والفائدة، وبيان ما ورد فيه الحديث عند توفره.
+      يتم اختيار القسم تلقائيًا حسب وقت جهازك المحلي، مع إمكانية التنقّل يدويًا بين الأقسام في أي لحظة.
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <h2>أقسام الذكر</h2>
+        <div class="chip">التبديل التلقائي حسب الوقت المحلي</div>
+      </div>
+
+      <div class="tabs" id="tabs"></div>
+
+      <div class="controls">
+        <div class="search-wrap">
+          <input id="searchInput" type="search" placeholder="ابحث في الأذكار أو الفوائد أو المصدر..." />
+        </div>
+
+        <label class="switch">
+          <input type="checkbox" id="onlyIncomplete" />
+          عرض غير المكتمل فقط
+        </label>
+      </div>
+
+      <div class="grid" id="cardsGrid"></div>
+      <div class="empty" id="emptyState" hidden>لا توجد نتائج مطابقة للبحث في هذا القسم.</div>
+    </section>
+
+    <footer class="footer">
+      هذه نسخة HTML أولية قابلة للتطوير. تم إعدادها لتعمل محليًا في المتصفح بدون خادم، مع حفظ التقدّم في جهاز المستخدم باستخدام <strong>localStorage</strong>.
+      يمكن لاحقًا إضافة القرآن، أذكار إضافية، مواقيت الصلاة الدقيقة، والإشعارات الصوتية والتنبيهات الذكية.
+    </footer>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script>
+    const tabs = [
+      { key: 'morning', title: 'أذكار الصباح', subtitle: 'تظهر تلقائيًا صباحًا' },
+      { key: 'evening', title: 'أذكار المساء', subtitle: 'تظهر تلقائيًا مساءً' },
+      { key: 'sleep', title: 'أذكار النوم', subtitle: 'تظهر تلقائيًا ليلًا' },
+      { key: 'quran', title: 'القرآن', subtitle: 'قريبًا', coming: true },
+      { key: 'other', title: 'أذكار أخرى', subtitle: 'قريبًا', coming: true }
+    ];
+
+    const adhkar = {
+      morning: [
+        {
+          id: 'm1',
+          title: 'آية الكرسي',
+          count: 1,
+          text: 'بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيمِ • اللَّهُ لَا إِلَٰهَ إِلَّا هُوَ الْحَيُّ الْقَيُّومُ ۚ لَا تَأْخُذُهُ سِنَةٌ وَلَا نَوْمٌ ۚ لَهُ مَا فِي السَّمَاوَاتِ وَمَا فِي الْأَرْضِ... وَهُوَ الْعَلِيُّ الْعَظِيمُ.',
+          benefit: 'من قالها حين يصبح أُجير من الجن حتى يمسي.',
+          source: 'آية الكرسي — سورة البقرة 255',
+          hadith: 'ورد في الأثر: من قالها حين يصبح أُجير من الجن حتى يمسي.'
+        },
+        {
+          id: 'm2',
+          title: 'الإخلاص والفلق والناس',
+          count: 3,
+          text: 'قُلْ هُوَ اللَّهُ أَحَدٌ • قُلْ أَعُوذُ بِرَبِّ الْفَلَقِ • قُلْ أَعُوذُ بِرَبِّ النَّاسِ.',
+          benefit: 'تكفي العبد من كل شيء إذا قالها صباحًا ومساءً.',
+          source: 'سور الإخلاص والفلق والناس',
+          hadith: 'من قالها حين يصبح وحين يمسي كفته من كل شيء.'
+        },
+        {
+          id: 'm3',
+          title: 'دعاء سيّد الاستغفار',
+          count: 1,
+          text: 'اللَّهُمَّ أَنْتَ رَبِّي لَا إِلَهَ إِلَّا أَنْتَ، خَلَقْتَنِي وَأَنَا عَبْدُكَ، وَأَنَا عَلَى عَهْدِكَ وَوَعْدِكَ مَا اسْتَطَعْتُ... فَاغْفِرْ لِي فَإِنَّهُ لَا يَغْفِرُ الذُّنُوبَ إِلَّا أَنْتَ.',
+          benefit: 'من قالها موقنًا بها حين يصبح ثم مات من يومه دخل الجنة.',
+          source: 'رواه البخاري',
+          hadith: 'مذكور في الحديث الصحيح.'
+        },
+        {
+          id: 'm4',
+          title: 'شكر النعمة عند الصباح',
+          count: 1,
+          text: 'اللَّهُمَّ مَا أَصْبَحَ بِي مِنْ نِعْمَةٍ أَوْ بِأَحَدٍ مِنْ خَلْقِكَ فَمِنْكَ وَحْدَكَ لَا شَرِيكَ لَكَ، فَلَكَ الْحَمْدُ وَلَكَ الشُّكْرُ.',
+          benefit: 'من قالها حين يصبح فقد أدّى شكر يومه.',
+          source: 'رواه أبو داود',
+          hadith: 'ورد في الحديث.'
+        },
+        {
+          id: 'm5',
+          title: 'حسبي الله لا إله إلا هو',
+          count: 7,
+          text: 'حَسْبِيَ اللَّهُ لَا إِلَهَ إِلَّا هُوَ، عَلَيْهِ تَوَكَّلْتُ، وَهُوَ رَبُّ الْعَرْشِ الْعَظِيمِ.',
+          benefit: 'كفاية من هموم الدنيا والآخرة بإذن الله.',
+          source: 'رواه ابن السني',
+          hadith: 'من قالها سبع مرات كفاه الله ما أهمه.'
+        },
+        {
+          id: 'm6',
+          title: 'بسم الله الذي لا يضر',
+          count: 3,
+          text: 'بِسْمِ اللَّهِ الَّذِي لَا يَضُرُّ مَعَ اسْمِهِ شَيْءٌ فِي الْأَرْضِ وَلَا فِي السَّمَاءِ، وَهُوَ السَّمِيعُ الْعَلِيمُ.',
+          benefit: 'حفظ من الضرر بإذن الله.',
+          source: 'رواه ابن ماجه',
+          hadith: 'لم يضره من الله شيء.'
+        },
+        {
+          id: 'm7',
+          title: 'اللهم بك أصبحنا',
+          count: 1,
+          text: 'اللَّهُمَّ بِكَ أَصْبَحْنَا، وَبِكَ أَمْسَيْنَا، وَبِكَ نَحْيَا، وَبِكَ نَمُوتُ، وَإِلَيْكَ النُّشُورُ.',
+          benefit: 'تجديد التوكل واستحضار أن الحياة والموت بيد الله.',
+          source: 'رواه الترمذي',
+          hadith: 'ورد في الحديث.'
+        },
+        {
+          id: 'm8',
+          title: 'سبحان الله وبحمده',
+          count: 100,
+          text: 'سُبْحَانَ اللَّهِ وَبِحَمْدِهِ.',
+          benefit: 'من قالها مائة مرة غُفرت ذنوبه وإن كانت مثل زبد البحر.',
+          source: 'رواه مسلم',
+          hadith: 'حديث صحيح مشهور.'
+        }
+      ],
+      evening: [
+        {
+          id: 'e1',
+          title: 'آية الكرسي',
+          count: 1,
+          text: 'بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيمِ • اللَّهُ لَا إِلَٰهَ إِلَّا هُوَ الْحَيُّ الْقَيُّومُ ۚ لَا تَأْخُذُهُ سِنَةٌ وَلَا نَوْمٌ ۚ لَهُ مَا فِي السَّمَاوَاتِ وَمَا فِي الْأَرْضِ... وَهُوَ الْعَلِيُّ الْعَظِيمُ.',
+          benefit: 'من قالها حين يمسي أُجير من الجن حتى يصبح.',
+          source: 'آية الكرسي — سورة البقرة 255',
+          hadith: 'ورد في الأثر: من قالها حين يمسي أُجير من الجن حتى يصبح.'
+        },
+        {
+          id: 'e2',
+          title: 'الإخلاص والفلق والناس',
+          count: 3,
+          text: 'قُلْ هُوَ اللَّهُ أَحَدٌ • قُلْ أَعُوذُ بِرَبِّ الْفَلَقِ • قُلْ أَعُوذُ بِرَبِّ النَّاسِ.',
+          benefit: 'تكفي العبد من كل شيء إذا قالها صباحًا ومساءً.',
+          source: 'سور الإخلاص والفلق والناس',
+          hadith: 'من قالها حين يصبح وحين يمسي كفته من كل شيء.'
+        },
+        {
+          id: 'e3',
+          title: 'أمسينا وأمسى الملك لله',
+          count: 1,
+          text: 'أَمْسَيْنَا وَأَمْسَى الْمُلْكُ لِلَّهِ وَالْحَمْدُ لِلَّهِ، لَا إِلَهَ إِلَّا اللَّهُ وَحْدَهُ لَا شَرِيكَ لَهُ... رَبِّ أَعُوذُ بِكَ مِنْ عَذَابٍ فِي النَّارِ وَعَذَابٍ فِي الْقَبْرِ.',
+          benefit: 'دعاء جامع لخير الليلة والاستعاذة من شرها.',
+          source: 'رواه مسلم',
+          hadith: 'مذكور في صحيح مسلم.'
+        },
+        {
+          id: 'e4',
+          title: 'دعاء سيّد الاستغفار',
+          count: 1,
+          text: 'اللَّهُمَّ أَنْتَ رَبِّي لَا إِلَهَ إِلَّا أَنْتَ، خَلَقْتَنِي وَأَنَا عَبْدُكَ... فَاغْفِرْ لِي فَإِنَّهُ لَا يَغْفِرُ الذُّنُوبَ إِلَّا أَنْتَ.',
+          benefit: 'من قالها موقنًا بها حين يمسي ثم مات من ليلته دخل الجنة.',
+          source: 'رواه البخاري',
+          hadith: 'مذكور في الحديث الصحيح.'
+        },
+        {
+          id: 'e5',
+          title: 'اللهم إني أمسيت أشهدك',
+          count: 4,
+          text: 'اللَّهُمَّ إِنِّي أَمْسَيْتُ أُشْهِدُكَ، وَأُشْهِدُ حَمَلَةَ عَرْشِكَ، وَمَلَائِكَتَكَ، وَجَمِيعَ خَلْقِكَ، أَنَّكَ أَنْتَ اللَّهُ لَا إِلَهَ إِلَّا أَنْتَ وَحْدَكَ لَا شَرِيكَ لَكَ، وَأَنَّ مُحَمَّدًا عَبْدُكَ وَرَسُولُكَ.',
+          benefit: 'من قالها أعتقه الله من النار.',
+          source: 'رواه أبو داود',
+          hadith: 'ورد في الحديث.'
+        },
+        {
+          id: 'e6',
+          title: 'اللهم ما أمسى بي من نعمة',
+          count: 1,
+          text: 'اللَّهُمَّ مَا أَمْسَى بِي مِنْ نِعْمَةٍ أَوْ بِأَحَدٍ مِنْ خَلْقِكَ فَمِنْكَ وَحْدَكَ لَا شَرِيكَ لَكَ، فَلَكَ الْحَمْدُ وَلَكَ الشُّكْرُ.',
+          benefit: 'من قالها حين يمسي فقد أدّى شكر ليلته.',
+          source: 'رواه أبو داود',
+          hadith: 'ورد في الحديث.'
+        },
+        {
+          id: 'e7',
+          title: 'اللهم بك أمسينا',
+          count: 1,
+          text: 'اللَّهُمَّ بِكَ أَمْسَيْنَا، وَبِكَ أَصْبَحْنَا، وَبِكَ نَحْيَا، وَبِكَ نَمُوتُ، وَإِلَيْكَ الْمَصِيرُ.',
+          benefit: 'تجديد التفويض لله عند دخول الليل.',
+          source: 'رواه الترمذي',
+          hadith: 'ورد في الحديث.'
+        },
+        {
+          id: 'e8',
+          title: 'الصلاة على النبي ﷺ',
+          count: 10,
+          text: 'اللَّهُمَّ صَلِّ وَسَلِّمْ وَبَارِكْ عَلَى نَبِيِّنَا مُحَمَّدٍ.',
+          benefit: 'من صلى على النبي ﷺ حين يصبح وحين يمسي أدركته شفاعته يوم القيامة.',
+          source: 'رواه الطبراني',
+          hadith: 'ورد في الحديث.'
+        }
+      ],
+      sleep: [
+        {
+          id: 's1',
+          title: 'آية الكرسي قبل النوم',
+          count: 1,
+          text: 'اللَّهُ لَا إِلَٰهَ إِلَّا هُوَ الْحَيُّ الْقَيُّومُ... وَهُوَ الْعَلِيُّ الْعَظِيمُ.',
+          benefit: 'لا يزال على العبد من الله حافظ، ولا يقربه شيطان حتى يصبح.',
+          source: 'رواه البخاري',
+          hadith: 'مذكور في حديث أبي هريرة رضي الله عنه.'
+        },
+        {
+          id: 's2',
+          title: 'باسمك اللهم أموت وأحيا',
+          count: 1,
+          text: 'بِاسْمِكَ اللَّهُمَّ أَمُوتُ وَأَحْيَا.',
+          benefit: 'ذكر عظيم عند النوم واستحضار التوكل على الله.',
+          source: 'رواه البخاري',
+          hadith: 'ورد في الحديث.'
+        },
+        {
+          id: 's3',
+          title: 'تسبيح فاطمة',
+          count: 1,
+          text: 'سُبْحَانَ اللَّهِ 33 مرة، وَالْحَمْدُ لِلَّهِ 33 مرة، وَاللَّهُ أَكْبَرُ 34 مرة.',
+          benefit: 'خير من خادم وفيه إعانة على أمر الدنيا والعبادة.',
+          source: 'رواه البخاري ومسلم',
+          hadith: 'مذكور في الحديث الصحيح.'
+        },
+        {
+          id: 's4',
+          title: 'الإخلاص والمعوذتان مع النفث',
+          count: 3,
+          text: 'تقرأ قُلْ هُوَ اللَّهُ أَحَدٌ، وَقُلْ أَعُوذُ بِرَبِّ الْفَلَقِ، وَقُلْ أَعُوذُ بِرَبِّ النَّاسِ، ثم تنفث في كفيك وتمسح بهما ما استطعت من جسدك.',
+          benefit: 'حفظ ووقاية عند النوم.',
+          source: 'رواه البخاري',
+          hadith: 'ورد في حديث عائشة رضي الله عنها.'
+        }
+      ],
+      quran: [],
+      other: []
+    };
+
+    const state = {
+      currentTab: 'morning',
+      autoMode: true,
+      fontScale: Number(localStorage.getItem('reetal-font-scale') || 1),
+      search: '',
+      onlyIncomplete: false,
+      speakingId: null
+    };
+
+    const grid = document.getElementById('cardsGrid');
+    const tabsWrap = document.getElementById('tabs');
+    const searchInput = document.getElementById('searchInput');
+    const onlyIncomplete = document.getElementById('onlyIncomplete');
+    const progressBar = document.getElementById('progressBar');
+    const progressLabel = document.getElementById('progressLabel');
+    const completedLabel = document.getElementById('completedLabel');
+    const currentModeLabel = document.getElementById('currentModeLabel');
+    const todayLabel = document.getElementById('todayLabel');
+    const emptyState = document.getElementById('emptyState');
+    const toast = document.getElementById('toast');
+    const toggleAutoBtn = document.getElementById('toggleAuto');
+
+    function todayKey() {
+      const now = new Date();
+      return `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}-${String(now.getDate()).padStart(2,'0')}`;
+    }
+
+    function storageKey(tab) {
+      return `reetal-progress-${todayKey()}-${tab}`;
+    }
+
+    function getProgress(tab) {
+      try {
+        return JSON.parse(localStorage.getItem(storageKey(tab)) || '{}');
+      } catch {
+        return {};
+      }
+    }
+
+    function setProgress(tab, data) {
+      localStorage.setItem(storageKey(tab), JSON.stringify(data));
+    }
+
+    function detectModeByTime() {
+      const hour = new Date().getHours();
+      if (hour >= 5 && hour < 15) return 'morning';
+      if (hour >= 15 && hour < 22) return 'evening';
+      return 'sleep';
+    }
+
+    function modeLabel(key) {
+      return ({ morning: 'أذكار الصباح', evening: 'أذكار المساء', sleep: 'أذكار النوم', quran: 'القرآن', other: 'أذكار أخرى' })[key] || '—';
+    }
+
+    function formatToday() {
+      const d = new Date();
+      return new Intl.DateTimeFormat('ar-EG', {
+        weekday: 'long',
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+      }).format(d);
+    }
+
+    function getItemCountValue(tab, itemId) {
+      const progress = getProgress(tab);
+      return progress[itemId] || 0;
+    }
+
+    function setItemCountValue(tab, itemId, value) {
+      const progress = getProgress(tab);
+      progress[itemId] = value;
+      setProgress(tab, progress);
+    }
+
+    function isComplete(tab, item) {
+      return getItemCountValue(tab, item.id) >= item.count;
+    }
+
+    function completionStats(tab) {
+      const items = adhkar[tab] || [];
+      if (!items.length) return { done: 0, total: 0, percent: 0 };
+      const done = items.filter(item => isComplete(tab, item)).length;
+      return { done, total: items.length, percent: Math.round((done / items.length) * 100) };
+    }
+
+    function showToast(message) {
+      toast.textContent = message;
+      toast.classList.add('show');
+      clearTimeout(showToast._t);
+      showToast._t = setTimeout(() => toast.classList.remove('show'), 2200);
+    }
+
+    function renderTabs() {
+      tabsWrap.innerHTML = '';
+      tabs.forEach(tab => {
+        const btn = document.createElement('button');
+        btn.className = `tab-btn ${state.currentTab === tab.key ? 'active' : ''} ${tab.coming ? 'coming' : ''}`;
+        btn.innerHTML = `${tab.title}<small>${tab.subtitle}</small>`;
+        btn.addEventListener('click', () => {
+          state.currentTab = tab.key;
+          state.autoMode = false;
+          updateAutoButton();
+          render();
+        });
+        tabsWrap.appendChild(btn);
+      });
+    }
+
+    function speakText(text, id) {
+      if (!('speechSynthesis' in window)) {
+        showToast('الاستماع غير مدعوم في هذا المتصفح.');
+        return;
+      }
+      window.speechSynthesis.cancel();
+      if (state.speakingId === id) {
+        state.speakingId = null;
+        return render();
+      }
+      const utter = new SpeechSynthesisUtterance(text.replace(/•/g, ' '));
+      utter.lang = 'ar-SA';
+      utter.rate = 0.9;
+      utter.onend = () => { state.speakingId = null; render(); };
+      state.speakingId = id;
+      window.speechSynthesis.speak(utter);
+      render();
+    }
+
+    function copyText(text) {
+      navigator.clipboard.writeText(text).then(() => showToast('تم نسخ الذكر.'));
+    }
+
+    function itemMatches(item, query) {
+      const hay = `${item.title} ${item.text} ${item.benefit || ''} ${item.source || ''} ${item.hadith || ''}`.toLowerCase();
+      return hay.includes(query.toLowerCase());
+    }
+
+    function renderCards() {
+      const items = adhkar[state.currentTab] || [];
+      const visible = items.filter(item => {
+        if (state.search && !itemMatches(item, state.search)) return false;
+        if (state.onlyIncomplete && isComplete(state.currentTab, item)) return false;
+        return true;
+      });
+
+      grid.innerHTML = '';
+      emptyState.hidden = visible.length !== 0;
+
+      if (!items.length) {
+        emptyState.hidden = false;
+        emptyState.textContent = 'هذا القسم قيد الإضافة في النسخة القادمة.';
+        return;
+      }
+
+      visible.forEach(item => {
+        const current = getItemCountValue(state.currentTab, item.id);
+        const complete = current >= item.count;
+
+        const card = document.createElement('article');
+        card.className = 'card';
+        card.innerHTML = `
+          <div class="card-top">
+            <div class="title-block">
+              <h3>${item.title}</h3>
+              <div class="meta">
+                <span class="chip">العدد المطلوب: ${item.count}</span>
+                ${item.source ? `<span class="chip gold">${item.source}</span>` : ''}
+                ${complete ? `<span class="chip success">مكتمل</span>` : ''}
+              </div>
+            </div>
+            <div class="count-pill"><span>العداد</span>${Math.min(current, item.count)} / ${item.count}</div>
+          </div>
+
+          <div class="zikr-text">${item.text}</div>
+          ${item.benefit ? `<div class="benefit"><strong>الفائدة:</strong> ${item.benefit}</div>` : ''}
+          ${item.hadith ? `<div class="chip gold" style="margin-bottom: 14px; display: inline-flex;">🕋 ${item.hadith}</div>` : ''}
+
+          <div class="actions">
+            <div class="actions-right">
+              <button class="action-btn primary" data-action="count">${complete ? 'تمّ الإنجاز' : 'عدّ الذكر'}</button>
+              <button class="action-btn ${complete ? 'success' : ''}" data-action="complete">${complete ? 'إلغاء الإكمال' : 'تعليم كمكتمل'}</button>
+            </div>
+            <div class="actions-left">
+              <button class="mini-btn" data-action="listen">${state.speakingId === item.id ? 'إيقاف' : 'استماع'}</button>
+              <button class="mini-btn" data-action="copy">نسخ</button>
+            </div>
+          </div>
+        `;
+
+        card.querySelector('[data-action="count"]').addEventListener('click', () => {
+          if (current < item.count) {
+            setItemCountValue(state.currentTab, item.id, current + 1);
+            if (current + 1 === item.count) showToast(`أحسنت، أتممت: ${item.title}`);
+          } else {
+            showToast('هذا الذكر مكتمل بالفعل.');
+          }
+          render();
+        });
+
+        card.querySelector('[data-action="complete"]').addEventListener('click', () => {
+          setItemCountValue(state.currentTab, item.id, complete ? 0 : item.count);
+          render();
+        });
+
+        card.querySelector('[data-action="listen"]').addEventListener('click', () => speakText(item.text, item.id));
+        card.querySelector('[data-action="copy"]').addEventListener('click', () => copyText(item.text));
+
+        grid.appendChild(card);
+      });
+    }
+
+    function updateHeaderStats() {
+      const stats = completionStats(state.currentTab);
+      progressBar.style.width = `${stats.percent}%`;
+      progressLabel.textContent = `${stats.percent}%`;
+      completedLabel.textContent = `${stats.done} / ${stats.total}`;
+      currentModeLabel.textContent = modeLabel(state.currentTab);
+      todayLabel.textContent = formatToday();
+    }
+
+    function updateAutoButton() {
+      toggleAutoBtn.textContent = state.autoMode ? 'الوضع التلقائي: مفعّل' : 'الوضع التلقائي: يدوي';
+    }
+
+    function render() {
+      if (state.autoMode) state.currentTab = detectModeByTime();
+      document.documentElement.style.setProperty('--font-scale', state.fontScale);
+      localStorage.setItem('reetal-font-scale', state.fontScale.toString());
+      updateAutoButton();
+      renderTabs();
+      renderCards();
+      updateHeaderStats();
+    }
+
+    searchInput.addEventListener('input', e => {
+      state.search = e.target.value.trim();
+      renderCards();
+      updateHeaderStats();
+    });
+
+    onlyIncomplete.addEventListener('change', e => {
+      state.onlyIncomplete = e.target.checked;
+      renderCards();
+      updateHeaderStats();
+    });
+
+    document.getElementById('increaseFont').addEventListener('click', () => {
+      state.fontScale = Math.min(1.25, +(state.fontScale + 0.05).toFixed(2));
+      render();
+    });
+
+    document.getElementById('decreaseFont').addEventListener('click', () => {
+      state.fontScale = Math.max(0.9, +(state.fontScale - 0.05).toFixed(2));
+      render();
+    });
+
+    toggleAutoBtn.addEventListener('click', () => {
+      state.autoMode = !state.autoMode;
+      render();
+    });
+
+    document.getElementById('resetToday').addEventListener('click', () => {
+      if (!confirm('هل تريد مسح عدادات اليوم للقسم الحالي؟')) return;
+      localStorage.removeItem(storageKey(state.currentTab));
+      render();
+      showToast('تمت إعادة تعيين عدادات اليوم.');
+    });
+
+    setInterval(() => {
+      if (state.autoMode) render();
+    }, 60 * 1000);
+
+    render();
+  </script>
+</body>
+</html>
