@@ -3,195 +3,261 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="ريتال — أذكار الصباح والمساء والنوم مع عدّاد تنازلي، حفظ تلقائي، وقسم للسنن الرواتب وأذكار ما بعد الصلاة." />
+  <meta name="theme-color" content="#172320" />
+  <meta name="color-scheme" content="dark" />
   <title>ريتال | أذكار اليوم</title>
   <style>
     :root {
-      --bg: #08152f;
-      --bg-soft: #0e2347;
-      --panel: rgba(18, 37, 76, 0.92);
-      --panel-2: rgba(31, 57, 111, 0.9);
-      --card: rgba(20, 35, 72, 0.96);
-      --line: rgba(156, 185, 255, 0.18);
-      --text: #eef4ff;
-      --muted: #9fb0d7;
-      --primary: #4f8cff;
-      --primary-2: #8bb2ff;
-      --gold: #d8b24b;
-      --success: #2ac769;
-      --danger: #ff6b6b;
-      --shadow: 0 14px 44px rgba(0, 0, 0, 0.28);
-      --radius: 24px;
+      --bg: #0d1513;
+      --bg-soft: #111c19;
+      --panel: rgba(23, 35, 32, 0.92);
+      --panel-2: rgba(28, 45, 40, 0.96);
+      --card: rgba(242, 238, 228, 0.05);
+      --card-strong: rgba(242, 238, 228, 0.07);
+      --line: rgba(211, 224, 214, 0.12);
+      --text: #f4f0e7;
+      --muted: #bcc8bf;
+      --accent: #86ae9a;
+      --accent-strong: #5f8d77;
+      --accent-soft: rgba(134, 174, 154, 0.16);
+      --gold: #c9a56b;
+      --danger: #d06a6a;
+      --success: #66b886;
+      --shadow: 0 18px 50px rgba(0, 0, 0, 0.24);
+      --radius-xl: 28px;
+      --radius-lg: 22px;
+      --radius-md: 16px;
       --font-scale: 1;
+      --max: 1180px;
     }
 
     * { box-sizing: border-box; }
     html { scroll-behavior: smooth; }
     body {
       margin: 0;
-      background:
-        radial-gradient(circle at top, rgba(73, 119, 255, 0.18), transparent 30%),
-        linear-gradient(180deg, #0b1e45 0%, #071327 45%, #061024 100%);
-      color: var(--text);
-      font-family: "Tahoma", "Segoe UI", "Arial", sans-serif;
-      font-size: calc(16px * var(--font-scale));
       min-height: 100vh;
+      font-family: "Tahoma", "Segoe UI", Arial, sans-serif;
+      font-size: calc(16px * var(--font-scale));
+      color: var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(134, 174, 154, 0.12), transparent 28%),
+        radial-gradient(circle at top right, rgba(201, 165, 107, 0.08), transparent 22%),
+        linear-gradient(180deg, #0f1815 0%, #0d1513 42%, #09100f 100%);
+      line-height: 1.7;
     }
 
-    .container {
-      width: min(1180px, calc(100% - 28px));
+    a { color: inherit; }
+    button, input {
+      font: inherit;
+    }
+
+    .skip-link {
+      position: absolute;
+      top: -48px;
+      right: 16px;
+      background: #fff;
+      color: #111;
+      padding: 10px 14px;
+      border-radius: 12px;
+      z-index: 100;
+      text-decoration: none;
+    }
+    .skip-link:focus { top: 16px; }
+
+    .shell {
+      width: min(var(--max), calc(100% - 24px));
       margin: 0 auto;
-      padding: 22px 0 44px;
+      padding: 20px 0 36px;
     }
 
     .hero {
-      background: linear-gradient(180deg, rgba(20, 53, 120, 0.9), rgba(12, 34, 77, 0.88));
+      background: linear-gradient(180deg, rgba(25, 41, 36, 0.96), rgba(18, 31, 28, 0.92));
       border: 1px solid var(--line);
+      border-radius: 34px;
       box-shadow: var(--shadow);
-      border-radius: 32px;
       padding: 24px;
-      position: sticky;
-      top: 12px;
-      z-index: 20;
-      backdrop-filter: blur(18px);
+      overflow: hidden;
+      position: relative;
     }
 
-    .topbar {
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: auto -60px -60px auto;
+      width: 220px;
+      height: 220px;
+      background: radial-gradient(circle, rgba(134, 174, 154, 0.15), transparent 62%);
+      pointer-events: none;
+    }
+
+    .hero-top {
       display: flex;
-      align-items: center;
+      align-items: flex-start;
       justify-content: space-between;
-      gap: 16px;
+      gap: 18px;
       flex-wrap: wrap;
     }
 
     .brand {
       display: flex;
-      align-items: center;
-      gap: 14px;
+      align-items: flex-start;
+      gap: 16px;
     }
 
-    .brand-mark {
-      width: 62px;
-      height: 62px;
+    .brand-badge {
+      width: 64px;
+      height: 64px;
       display: grid;
       place-items: center;
-      border-radius: 18px;
-      background: rgba(255,255,255,0.06);
-      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 20px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
       font-size: 1.8rem;
+      flex-shrink: 0;
     }
 
     .brand h1 {
       margin: 0;
-      font-size: clamp(1.8rem, 3.5vw, 3rem);
-      letter-spacing: 0.3px;
+      font-size: clamp(2rem, 4vw, 3rem);
+      letter-spacing: 0.2px;
     }
 
     .brand p {
-      margin: 6px 0 0;
+      margin: 8px 0 0;
       color: var(--muted);
-      font-size: 0.98rem;
+      max-width: 720px;
     }
 
-    .tools {
+    .toolbar {
       display: flex;
-      gap: 10px;
       flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
     }
 
-    .icon-btn,
-    .ghost-btn,
-    .action-btn,
-    .tab-btn,
-    .mini-btn {
+    .btn,
+    .tab,
+    .mini,
+    .icon-btn {
       border: 1px solid rgba(255,255,255,0.12);
-      background: rgba(255,255,255,0.06);
+      background: rgba(255,255,255,0.05);
       color: var(--text);
       border-radius: 16px;
       cursor: pointer;
-      transition: 0.2s ease;
+      transition: transform .18s ease, background .18s ease, border-color .18s ease;
     }
 
-    .icon-btn {
-      min-width: 46px;
-      height: 46px;
-      font-size: 1.15rem;
+    .btn:hover,
+    .tab:hover,
+    .mini:hover,
+    .icon-btn:hover {
+      transform: translateY(-1px);
+      border-color: rgba(255,255,255,0.22);
+      background: rgba(255,255,255,0.09);
     }
 
-    .ghost-btn,
-    .action-btn,
-    .mini-btn {
+    .btn:focus-visible,
+    .tab:focus-visible,
+    .mini:focus-visible,
+    .icon-btn:focus-visible,
+    input:focus-visible {
+      outline: 3px solid rgba(134, 174, 154, 0.45);
+      outline-offset: 2px;
+    }
+
+    .btn,
+    .mini {
       padding: 12px 16px;
       font-weight: 700;
     }
 
-    .icon-btn:hover,
-    .ghost-btn:hover,
-    .action-btn:hover,
-    .tab-btn:hover,
-    .mini-btn:hover {
-      transform: translateY(-1px);
-      border-color: rgba(255,255,255,0.22);
-      background: rgba(255,255,255,0.1);
+    .icon-btn {
+      width: 46px;
+      height: 46px;
+      font-size: 1.1rem;
     }
 
-    .stats {
+    .btn.primary {
+      background: linear-gradient(180deg, #6d9f86, #4f7b68);
+      border-color: rgba(255,255,255,0.08);
+    }
+
+    .hero-grid {
+      margin-top: 20px;
       display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
+      grid-template-columns: 1.3fr 1fr;
+      gap: 16px;
+    }
+
+    .panel {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      padding: 18px;
+    }
+
+    .panel h2,
+    .panel h3 {
+      margin: 0 0 10px;
+      font-size: 1.05rem;
+    }
+
+    .panel p {
+      margin: 0;
+      color: #e5ecdf;
+    }
+
+    .quick-stats {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 12px;
-      margin-top: 18px;
     }
 
     .stat {
-      background: rgba(255,255,255,0.05);
-      border: 1px solid var(--line);
-      border-radius: 20px;
-      padding: 14px 16px;
-      min-height: 88px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 18px;
+      padding: 14px;
     }
 
-    .stat-label {
+    .stat small {
+      display: block;
       color: var(--muted);
-      font-size: 0.92rem;
-      margin-bottom: 10px;
+      margin-bottom: 6px;
     }
 
     .stat strong {
-      font-size: clamp(1.15rem, 2vw, 1.5rem);
+      font-size: 1.15rem;
     }
 
-    .progress-wrap {
+    .progress {
       margin-top: 14px;
-      background: rgba(255,255,255,0.06);
+      height: 12px;
       border-radius: 999px;
+      background: rgba(255,255,255,0.06);
       overflow: hidden;
-      border: 1px solid rgba(255,255,255,0.09);
-      height: 13px;
+      border: 1px solid rgba(255,255,255,0.08);
     }
 
-    .progress-bar {
+    .progress > span {
+      display: block;
       height: 100%;
       width: 0%;
-      background: linear-gradient(90deg, var(--primary), #6ea4ff, #a4c3ff);
-      transition: width 0.25s ease;
-      border-radius: inherit;
+      background: linear-gradient(90deg, #4f7b68, #86ae9a, #c9a56b);
+      transition: width .25s ease;
     }
 
-    .intro {
+    .main {
       margin-top: 22px;
-      background: var(--panel);
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      padding: 22px;
-      box-shadow: var(--shadow);
-      line-height: 2;
-      color: #dbe6ff;
+      display: grid;
+      gap: 18px;
     }
 
     .section {
-      margin-top: 24px;
-      background: var(--panel);
+      background: linear-gradient(180deg, rgba(22, 34, 31, 0.96), rgba(14, 24, 22, 0.94));
       border: 1px solid var(--line);
-      border-radius: var(--radius);
+      border-radius: 28px;
       box-shadow: var(--shadow);
       overflow: hidden;
     }
@@ -201,108 +267,109 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 14px;
+      gap: 12px;
       flex-wrap: wrap;
     }
 
     .section-head h2 {
       margin: 0;
-      font-size: 1.25rem;
+      font-size: 1.2rem;
+    }
+
+    .eyebrow {
+      color: var(--muted);
+      font-size: 0.94rem;
     }
 
     .tabs {
+      padding: 0 18px 18px;
       display: grid;
       grid-template-columns: repeat(5, minmax(0, 1fr));
       gap: 12px;
-      padding: 0 18px 18px;
     }
 
-    .tab-btn {
-      padding: 18px 14px;
-      text-align: center;
-      border-radius: 22px;
-      background: rgba(255,255,255,0.05);
-      color: var(--text);
-      font-weight: 800;
+    .tab {
+      padding: 16px 14px;
       min-height: 86px;
-      line-height: 1.7;
+      text-align: right;
+      line-height: 1.6;
+      font-weight: 800;
     }
 
-    .tab-btn small {
+    .tab small {
       display: block;
-      font-weight: 500;
       color: var(--muted);
-      margin-top: 2px;
+      font-weight: 500;
+      margin-top: 4px;
     }
 
-    .tab-btn.active {
-      background: linear-gradient(180deg, rgba(86, 135, 255, 0.3), rgba(43, 81, 171, 0.28));
-      border-color: rgba(146, 185, 255, 0.45);
-      box-shadow: inset 0 -3px 0 rgba(114, 165, 255, 0.95);
+    .tab.active {
+      background: linear-gradient(180deg, rgba(134, 174, 154, 0.22), rgba(95, 141, 119, 0.16));
+      border-color: rgba(134, 174, 154, 0.32);
+      box-shadow: inset 0 -3px 0 rgba(134, 174, 154, 0.9);
     }
 
-    .tab-btn.coming {
-      opacity: 0.65;
-    }
+    .tab.soon { opacity: .72; }
 
     .controls {
-      display: flex;
-      gap: 12px;
       padding: 0 18px 18px;
+      display: flex;
       flex-wrap: wrap;
+      gap: 12px;
+      align-items: center;
     }
 
-    .search-wrap {
+    .search {
       position: relative;
       flex: 1 1 320px;
     }
 
-    .search-wrap input {
+    .search input {
       width: 100%;
       background: rgba(255,255,255,0.04);
       color: var(--text);
       border: 1px solid var(--line);
       border-radius: 18px;
-      padding: 16px 18px;
-      padding-inline-start: 48px;
-      font-size: 1rem;
-      outline: none;
+      padding: 15px 16px;
+      padding-inline-start: 52px;
     }
 
-    .search-wrap::before {
+    .search::before {
       content: "⌕";
       position: absolute;
       right: 16px;
       top: 50%;
       transform: translateY(-50%);
       color: var(--muted);
-      font-size: 1.3rem;
+      font-size: 1.25rem;
     }
 
-    .switch {
-      display: flex;
+    .switch,
+    .info-pill {
+      display: inline-flex;
       align-items: center;
       gap: 10px;
+      padding: 11px 14px;
+      border-radius: 16px;
       background: rgba(255,255,255,0.04);
       border: 1px solid var(--line);
-      border-radius: 18px;
-      padding: 10px 14px;
+      color: #e7eee8;
       white-space: nowrap;
     }
 
-    .switch input { accent-color: var(--primary); }
+    .switch input { accent-color: var(--accent-strong); }
 
-    .grid {
+    .cards {
       display: grid;
-      gap: 18px;
-      padding: 0 18px 22px;
+      gap: 16px;
+      padding: 0 18px 24px;
     }
 
     .card {
-      background: linear-gradient(180deg, rgba(28, 46, 91, 0.98), rgba(18, 32, 68, 0.98));
-      border: 1px solid rgba(164, 188, 255, 0.13);
-      border-radius: 26px;
-      padding: 20px;
+      background: linear-gradient(180deg, rgba(245, 241, 231, 0.045), rgba(245, 241, 231, 0.03));
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 24px;
+      padding: 18px;
       position: relative;
       overflow: hidden;
     }
@@ -310,10 +377,11 @@
     .card::after {
       content: "";
       position: absolute;
-      inset: auto auto -80px -40px;
-      width: 180px;
-      height: 180px;
-      background: radial-gradient(circle, rgba(79, 140, 255, 0.16), transparent 65%);
+      left: -30px;
+      bottom: -34px;
+      width: 120px;
+      height: 120px;
+      background: radial-gradient(circle, rgba(201, 165, 107, 0.09), transparent 65%);
       pointer-events: none;
     }
 
@@ -322,140 +390,145 @@
       align-items: flex-start;
       justify-content: space-between;
       gap: 16px;
-      margin-bottom: 14px;
+      margin-bottom: 12px;
     }
 
-    .count-pill {
-      min-width: 70px;
-      background: linear-gradient(180deg, #3d79f1, #245cd1);
-      border-radius: 22px;
+    .title h3 {
+      margin: 0;
+      font-size: 1.08rem;
+    }
+
+    .title p {
+      margin: 6px 0 0;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .count-box {
+      min-width: 95px;
       padding: 10px 12px;
+      border-radius: 18px;
       text-align: center;
-      box-shadow: 0 12px 24px rgba(36, 92, 209, 0.28);
+      background: linear-gradient(180deg, #4e7967, #365b4d);
+      color: #f7f8f2;
+      box-shadow: 0 12px 24px rgba(54, 91, 77, 0.25);
       font-weight: 800;
+      flex-shrink: 0;
     }
 
-    .count-pill span {
+    .count-box small {
       display: block;
-      font-size: 0.82rem;
+      font-size: 0.8rem;
       opacity: 0.9;
       margin-bottom: 2px;
     }
 
-    .title-block h3 {
-      margin: 0;
-      font-size: 1.12rem;
-    }
-
-    .meta {
-      margin-top: 8px;
+    .chips {
       display: flex;
       flex-wrap: wrap;
       gap: 8px;
+      margin-top: 10px;
     }
 
     .chip {
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      padding: 7px 12px;
       border-radius: 999px;
-      background: rgba(255,255,255,0.06);
-      color: #d8e4ff;
-      border: 1px solid rgba(255,255,255,0.08);
+      padding: 7px 12px;
       font-size: 0.9rem;
+      background: rgba(255,255,255,0.05);
+      color: #e9f0e8;
+      border: 1px solid rgba(255,255,255,0.08);
     }
 
     .chip.gold {
-      background: rgba(216, 178, 75, 0.14);
-      color: #ffe39b;
-      border-color: rgba(216, 178, 75, 0.22);
+      background: rgba(201, 165, 107, 0.12);
+      color: #f4ddb8;
+      border-color: rgba(201, 165, 107, 0.2);
     }
 
     .chip.success {
-      background: rgba(42, 199, 105, 0.12);
-      color: #92f0b5;
-      border-color: rgba(42, 199, 105, 0.18);
+      background: rgba(102, 184, 134, 0.14);
+      color: #b8ecc9;
+      border-color: rgba(102, 184, 134, 0.2);
     }
 
-    .zikr-text {
-      margin: 18px 0 16px;
+    .zikr {
+      margin: 16px 0 14px;
       padding: 18px;
-      border-radius: 20px;
+      border-radius: 18px;
       background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(255,255,255,0.08);
-      line-height: 2.25;
-      font-size: clamp(1.2rem, 2vw, 1.85rem);
-      font-family: "Traditional Arabic", "Tahoma", serif;
-      color: #f6f9ff;
-      text-wrap: pretty;
+      border: 1px solid rgba(255,255,255,0.07);
+      font-family: "Traditional Arabic", "Amiri", serif;
+      font-size: clamp(1.24rem, 1.9vw, 1.9rem);
+      line-height: 2.15;
+      color: #f8f6ef;
     }
 
     .benefit {
+      margin-bottom: 12px;
       padding: 14px 16px;
-      border-radius: 18px;
-      background: rgba(216, 178, 75, 0.15);
-      border: 1px solid rgba(216, 178, 75, 0.22);
-      color: #ffe39b;
-      line-height: 1.9;
-      margin-bottom: 14px;
+      border-radius: 16px;
+      background: rgba(201, 165, 107, 0.13);
+      border: 1px solid rgba(201, 165, 107, 0.18);
+      color: #f2ddb7;
     }
 
     .actions {
       display: flex;
-      gap: 10px;
+      justify-content: space-between;
+      gap: 12px;
       flex-wrap: wrap;
       align-items: center;
-      justify-content: space-between;
     }
 
-    .actions-right,
-    .actions-left {
+    .cluster {
       display: flex;
-      gap: 10px;
+      gap: 8px;
       flex-wrap: wrap;
     }
 
-    .action-btn.primary {
-      background: linear-gradient(180deg, #5e99ff, #2e68df);
-      border-color: rgba(255,255,255,0.12);
+    .mini {
+      padding: 10px 14px;
+      font-weight: 700;
     }
 
-    .action-btn.success {
-      background: linear-gradient(180deg, #3dcb7a, #20a95f);
-      border-color: rgba(255,255,255,0.12);
-    }
+    .mini.primary { background: rgba(134, 174, 154, 0.16); }
+    .mini.success { background: rgba(102, 184, 134, 0.15); }
+    .mini.danger { background: rgba(208, 106, 106, 0.12); }
 
     .empty {
-      padding: 28px 18px 22px;
       text-align: center;
       color: var(--muted);
+      padding: 10px 18px 24px;
     }
 
     .footer {
-      margin: 24px auto 0;
+      margin-top: 18px;
       background: rgba(255,255,255,0.04);
       border: 1px solid var(--line);
-      border-radius: 22px;
+      border-radius: 24px;
       padding: 18px 20px;
       color: var(--muted);
-      line-height: 1.9;
       text-align: center;
     }
 
     .toast {
       position: fixed;
-      inset: auto 18px 18px auto;
-      background: rgba(10, 20, 44, 0.96);
-      border: 1px solid rgba(255,255,255,0.12);
-      color: var(--text);
-      padding: 14px 18px;
+      left: 16px;
+      bottom: 16px;
+      max-width: min(360px, calc(100% - 32px));
+      padding: 14px 16px;
       border-radius: 16px;
+      background: rgba(11, 20, 18, 0.98);
+      color: var(--text);
+      border: 1px solid rgba(255,255,255,0.12);
       box-shadow: var(--shadow);
-      transform: translateY(20px);
       opacity: 0;
+      transform: translateY(10px);
       pointer-events: none;
-      transition: 0.25s ease;
+      transition: opacity .2s ease, transform .2s ease;
       z-index: 50;
     }
 
@@ -465,334 +538,487 @@
     }
 
     @media (max-width: 980px) {
-      .stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .hero-grid { grid-template-columns: 1fr; }
       .tabs { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     }
 
-    @media (max-width: 640px) {
-      .container { width: min(100% - 16px, 1180px); }
-      .hero { padding: 18px; border-radius: 24px; }
-      .brand-mark { width: 54px; height: 54px; }
-      .stats { grid-template-columns: 1fr; }
+    @media (max-width: 680px) {
+      .shell { width: min(100% - 14px, var(--max)); }
+      .hero { padding: 18px; border-radius: 26px; }
+      .quick-stats { grid-template-columns: 1fr; }
       .tabs { grid-template-columns: 1fr; }
-      .actions { flex-direction: column; align-items: stretch; }
-      .actions-left, .actions-right { width: 100%; }
-      .actions-left > *, .actions-right > * { flex: 1 1 auto; }
       .card-top { flex-direction: column; }
-      .count-pill { align-self: flex-start; }
+      .actions { flex-direction: column; align-items: stretch; }
+      .cluster { width: 100%; }
+      .cluster > * { flex: 1 1 auto; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after {
+        animation: none !important;
+        transition: none !important;
+      }
     }
   </style>
 </head>
 <body>
-  <div class="container">
+  <a class="skip-link" href="#content">تخطَّ إلى المحتوى</a>
+
+  <div class="shell">
     <header class="hero">
-      <div class="topbar">
+      <div class="hero-top">
         <div class="brand">
-          <div class="brand-mark">🤲</div>
+          <div class="brand-badge" aria-hidden="true">🌿</div>
           <div>
             <h1>ريتال</h1>
-            <p>رفيقك اليومي للأذكار — تصميم هادئ، عدّاد ذكي، وحفظ تلقائي للتقدّم.</p>
+            <p>
+              تجربة هادئة ومختلفة للأذكار اليومية. العدّاد هنا <strong>تنازلي</strong> حتى تعرف ما تبقّى عليك،
+              والقسم يتبدّل تلقائيًا حسب الوقت المحلي بين الصباح والمساء والنوم، مع قسم مستقلّ لسنن الصلوات وما بعد الصلاة.
+            </p>
           </div>
         </div>
 
-        <div class="tools">
-          <button class="icon-btn" id="increaseFont" title="تكبير الخط">＋</button>
-          <button class="icon-btn" id="decreaseFont" title="تصغير الخط">－</button>
-          <button class="ghost-btn" id="toggleAuto">الوضع التلقائي</button>
-          <button class="ghost-btn" id="resetToday">إعادة عداد اليوم</button>
+        <div class="toolbar" aria-label="أدوات الواجهة">
+          <button class="icon-btn" id="fontUp" type="button" title="تكبير الخط">＋</button>
+          <button class="icon-btn" id="fontDown" type="button" title="تصغير الخط">－</button>
+          <button class="btn" id="toggleAuto" type="button">الوضع التلقائي</button>
+          <button class="btn" id="resetCurrent" type="button">إعادة ضبط القسم</button>
         </div>
       </div>
 
-      <div class="stats">
-        <div class="stat">
-          <div class="stat-label">الفترة الحالية</div>
-          <strong id="currentModeLabel">—</strong>
-        </div>
-        <div class="stat">
-          <div class="stat-label">التاريخ اليوم</div>
-          <strong id="todayLabel">—</strong>
-        </div>
-        <div class="stat">
-          <div class="stat-label">عدد الأذكار المكتملة</div>
-          <strong id="completedLabel">0</strong>
-        </div>
-        <div class="stat">
-          <div class="stat-label">نسبة الإنجاز</div>
-          <strong id="progressLabel">0%</strong>
-        </div>
+      <div class="hero-grid">
+        <section class="panel" aria-labelledby="introTitle">
+          <h2 id="introTitle">فكرة ريتال</h2>
+          <p id="introText">
+            بدل الواجهة الثقيلة المعلّقة طوال الوقت، هذا التصميم يضع المحتوى في المركز:
+            تعريف مختصر في الأعلى، ثم بطاقات واسعة يسهل قراءتها، مع بحث سريع، وتقدّم محفوظ على جهاز المستخدم.
+            الهدف هنا أن تكون القراءة مريحة، والانتقال واضحًا، والذكر نفسه هو محور الصفحة.
+          </p>
+        </section>
+
+        <aside class="panel" aria-labelledby="statsTitle">
+          <h2 id="statsTitle">ملخص اليوم</h2>
+          <div class="quick-stats" aria-live="polite">
+            <div class="stat">
+              <small>القسم الحالي</small>
+              <strong id="currentSectionLabel">—</strong>
+            </div>
+            <div class="stat">
+              <small>تقدّم القسم</small>
+              <strong id="progressLabel">0%</strong>
+            </div>
+            <div class="stat">
+              <small>المكتمل</small>
+              <strong id="doneLabel">0 / 0</strong>
+            </div>
+            <div class="stat">
+              <small>تاريخ اليوم</small>
+              <strong id="dateLabel">—</strong>
+            </div>
+          </div>
+          <div class="progress" aria-hidden="true"><span id="progressBar"></span></div>
+        </aside>
       </div>
-      <div class="progress-wrap"><div class="progress-bar" id="progressBar"></div></div>
     </header>
 
-    <section class="intro">
-      الأذكار تشكّل جزءًا أساسيًا من العبادة للمسلم، وهي وسيلة للتقرّب إلى الله سبحانه وتعالى والمحافظة على ذكره في كل الأوقات.
-      في هذه النسخة الأولى من <strong>ريتال</strong> ستجد أذكار الصباح والمساء والنوم مع العدّاد، والفائدة، وبيان ما ورد فيه الحديث عند توفره.
-      يتم اختيار القسم تلقائيًا حسب وقت جهازك المحلي، مع إمكانية التنقّل يدويًا بين الأقسام في أي لحظة.
-    </section>
-
-    <section class="section">
-      <div class="section-head">
-        <h2>أقسام الذكر</h2>
-        <div class="chip">التبديل التلقائي حسب الوقت المحلي</div>
-      </div>
-
-      <div class="tabs" id="tabs"></div>
-
-      <div class="controls">
-        <div class="search-wrap">
-          <input id="searchInput" type="search" placeholder="ابحث في الأذكار أو الفوائد أو المصدر..." />
+    <main id="content" class="main">
+      <section class="section" aria-labelledby="libraryTitle">
+        <div class="section-head">
+          <div>
+            <h2 id="libraryTitle">مكتبة الأذكار</h2>
+            <div class="eyebrow">النسخة الحالية تشمل الصباح والمساء والنوم، مع قسم للسنن الرواتب وما بعد الصلاة.</div>
+          </div>
+          <div class="info-pill" id="timeHint">يعتمد اختيار القسم الحالي على وقت جهازك المحلي</div>
         </div>
 
-        <label class="switch">
-          <input type="checkbox" id="onlyIncomplete" />
-          عرض غير المكتمل فقط
-        </label>
-      </div>
+        <div class="tabs" id="tabs"></div>
 
-      <div class="grid" id="cardsGrid"></div>
-      <div class="empty" id="emptyState" hidden>لا توجد نتائج مطابقة للبحث في هذا القسم.</div>
-    </section>
+        <div class="controls">
+          <div class="search">
+            <input id="searchInput" type="search" placeholder="ابحث في الذكر أو الفائدة أو المصدر..." aria-label="البحث في الأذكار" />
+          </div>
+          <label class="switch"><input type="checkbox" id="onlyRemaining" /> عرض ما لم يكتمل فقط</label>
+        </div>
 
-    <footer class="footer">
-      هذه نسخة HTML أولية قابلة للتطوير. تم إعدادها لتعمل محليًا في المتصفح بدون خادم، مع حفظ التقدّم في جهاز المستخدم باستخدام <strong>localStorage</strong>.
-      يمكن لاحقًا إضافة القرآن، أذكار إضافية، مواقيت الصلاة الدقيقة، والإشعارات الصوتية والتنبيهات الذكية.
-    </footer>
+        <div class="cards" id="cards"></div>
+        <div class="empty" id="emptyState" hidden>لا توجد نتائج مطابقة لهذا البحث.</div>
+      </section>
+
+      <footer class="footer">
+        هذه واجهة HTML واحدة مناسبة حاليًا للنشر على GitHub Pages. الحفظ يتم محليًا عبر <strong>localStorage</strong>.
+        ويمكن لاحقًا ربطها بمواقيت الصلاة الدقيقة وواجهة PWA وإشعارات أفضل.
+      </footer>
+    </main>
   </div>
 
-  <div class="toast" id="toast"></div>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
   <script>
     const tabs = [
-      { key: 'morning', title: 'أذكار الصباح', subtitle: 'تظهر تلقائيًا صباحًا' },
-      { key: 'evening', title: 'أذكار المساء', subtitle: 'تظهر تلقائيًا مساءً' },
-      { key: 'sleep', title: 'أذكار النوم', subtitle: 'تظهر تلقائيًا ليلًا' },
-      { key: 'quran', title: 'القرآن', subtitle: 'قريبًا', coming: true },
-      { key: 'other', title: 'أذكار أخرى', subtitle: 'قريبًا', coming: true }
+      { key: 'morning', label: 'أذكار الصباح', hint: 'القسم الصباحي' },
+      { key: 'evening', label: 'أذكار المساء', hint: 'القسم المسائي' },
+      { key: 'sleep', label: 'أذكار النوم', hint: 'قبل النوم' },
+      { key: 'prayer', label: 'سنن الصلوات', hint: 'قبل وبعد الصلاة' },
+      { key: 'quran', label: 'القرآن', hint: 'قريبًا', soon: true }
     ];
 
-    const adhkar = {
+    const introMap = {
+      morning: 'هذا القسم يركّز على الأذكار التي تُقال في أول النهار. التصميم هنا يُظهر لك ما تبقّى من التكرارات بدل عدد ما أنجزته فقط، حتى لا تنشغل بالواجهة أكثر من الذكر نفسه.',
+      evening: 'في المساء تتبدّل الصياغات من "أصبحنا" إلى "أمسينا" في عدد من الأذكار. الواجهة لا تثبّت شريطًا طويلًا أثناء التمرير حتى تبقى القراءة مريحة ومركّزة.',
+      sleep: 'أذكار النوم صُمّمت هنا كقراءة هادئة قبل النوم: بطاقات واسعة، لون مريح، وإجراءات بسيطة لإتمام الذكر أو التراجع إذا احتجت.',
+      prayer: 'هذا القسم يجمع السنن الرواتب المعروفة، وأذكار ما بعد الصلاة الواجبة، بصياغة مختصرة تساعدك على التذكّر السريع دون تشتيت.'
+    };
+
+    const collections = {
       morning: [
         {
-          id: 'm1',
-          title: 'آية الكرسي',
-          count: 1,
-          text: 'بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيمِ • اللَّهُ لَا إِلَٰهَ إِلَّا هُوَ الْحَيُّ الْقَيُّومُ ۚ لَا تَأْخُذُهُ سِنَةٌ وَلَا نَوْمٌ ۚ لَهُ مَا فِي السَّمَاوَاتِ وَمَا فِي الْأَرْضِ... وَهُوَ الْعَلِيُّ الْعَظِيمُ.',
-          benefit: 'من قالها حين يصبح أُجير من الجن حتى يمسي.',
-          source: 'آية الكرسي — سورة البقرة 255',
-          hadith: 'ورد في الأثر: من قالها حين يصبح أُجير من الجن حتى يمسي.'
+          id: 'm1', title: 'آية الكرسي', count: 1,
+          text: 'بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيمِ\nاللّهُ لاَ إِلَهَ إِلاَّ هُوَ الْحَيُّ الْقَيُّومُ لاَ تَأْخُذُهُ سِنَةٌ وَلاَ نَوْمٌ لَّهُ مَا فِي السَّمَاوَاتِ وَمَا فِي الأَرْضِ مَن ذَا الَّذِي يَشْفَعُ عِنْدَهُ إِلاَّ بِإِذْنِهِ يَعْلَمُ مَا بَيْنَ أَيْدِيهِمْ وَمَا خَلْفَهُمْ وَلاَ يُحِيطُونَ بِشَيْءٍ مِّنْ عِلْمِهِ إِلاَّ بِمَا شَاء وَسِعَ كُرْسِيُّهُ السَّمَاوَاتِ وَالأَرْضَ وَلاَ يَؤُودُهُ حِفْظُهُمَا وَهُوَ الْعَلِيُّ الْعَظِيمُ.',
+          benefit: 'من قالها حين يصبح أُجير من الجن حتى يمسي.', source: 'آية الكرسي — سورة البقرة 255', mention: 'وردت فضيلتها في الحديث'
         },
         {
-          id: 'm2',
-          title: 'الإخلاص والفلق والناس',
-          count: 3,
-          text: 'قُلْ هُوَ اللَّهُ أَحَدٌ • قُلْ أَعُوذُ بِرَبِّ الْفَلَقِ • قُلْ أَعُوذُ بِرَبِّ النَّاسِ.',
-          benefit: 'تكفي العبد من كل شيء إذا قالها صباحًا ومساءً.',
-          source: 'سور الإخلاص والفلق والناس',
-          hadith: 'من قالها حين يصبح وحين يمسي كفته من كل شيء.'
+          id: 'm2', title: 'سورة الإخلاص', count: 3,
+          text: 'بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيمِ\nقُلۡ هُوَ ٱللَّهُ أَحَدٌ ﴿١﴾ ٱللَّهُ ٱلصَّمَدُ ﴿٢﴾ لَمۡ يَلِدۡ وَلَمۡ يُولَدۡ ﴿٣﴾ وَلَمۡ يَكُن لَّهُۥ كُفُوًا أَحَدُۢ ﴿٤﴾',
+          benefit: 'تُقرأ مع المعوذتين، ومن قالها حين يصبح وحين يمسي كفته من كل شيء.', source: 'سورة الإخلاص', mention: 'مذكور في الحديث مع المعوذتين'
         },
         {
-          id: 'm3',
-          title: 'دعاء سيّد الاستغفار',
-          count: 1,
-          text: 'اللَّهُمَّ أَنْتَ رَبِّي لَا إِلَهَ إِلَّا أَنْتَ، خَلَقْتَنِي وَأَنَا عَبْدُكَ، وَأَنَا عَلَى عَهْدِكَ وَوَعْدِكَ مَا اسْتَطَعْتُ... فَاغْفِرْ لِي فَإِنَّهُ لَا يَغْفِرُ الذُّنُوبَ إِلَّا أَنْتَ.',
-          benefit: 'من قالها موقنًا بها حين يصبح ثم مات من يومه دخل الجنة.',
-          source: 'رواه البخاري',
-          hadith: 'مذكور في الحديث الصحيح.'
+          id: 'm3', title: 'سورة الفلق', count: 3,
+          text: 'بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيمِ\nقُلۡ أَعُوذُ بِرَبِّ ٱلۡفَلَقِ ﴿١﴾ مِن شَرِّ مَا خَلَقَ ﴿٢﴾ وَمِن شَرِّ غَاسِقٍ إِذَا وَقَبَ ﴿٣﴾ وَمِن شَرِّ ٱلنَّفَّٰثَٰتِ فِي ٱلۡعُقَدِ ﴿٤﴾ وَمِن شَرِّ حَاسِدٍ إِذَا حَسَدَ ﴿٥﴾',
+          benefit: 'تُقرأ مع الإخلاص والناس ثلاث مرات صباحًا.', source: 'سورة الفلق', mention: 'مذكور في الحديث مع المعوذتين'
         },
         {
-          id: 'm4',
-          title: 'شكر النعمة عند الصباح',
-          count: 1,
-          text: 'اللَّهُمَّ مَا أَصْبَحَ بِي مِنْ نِعْمَةٍ أَوْ بِأَحَدٍ مِنْ خَلْقِكَ فَمِنْكَ وَحْدَكَ لَا شَرِيكَ لَكَ، فَلَكَ الْحَمْدُ وَلَكَ الشُّكْرُ.',
-          benefit: 'من قالها حين يصبح فقد أدّى شكر يومه.',
-          source: 'رواه أبو داود',
-          hadith: 'ورد في الحديث.'
+          id: 'm4', title: 'سورة الناس', count: 3,
+          text: 'بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيمِ\nقُلۡ أَعُوذُ بِرَبِّ ٱلنَّاسِ ﴿١﴾ مَلِكِ ٱلنَّاسِ ﴿٢﴾ إِلَٰهِ ٱلنَّاسِ ﴿٣﴾ مِن شَرِّ ٱلۡوَسۡوَاسِ ٱلۡخَنَّاسِ ﴿٤﴾ ٱلَّذِي يُوَسۡوِسُ فِي صُدُورِ ٱلنَّاسِ ﴿٥﴾ مِنَ ٱلۡجِنَّةِ وَٱلنَّاسِ ﴿٦﴾',
+          benefit: 'تُقرأ مع الإخلاص والفلق ثلاث مرات صباحًا.', source: 'سورة الناس', mention: 'مذكور في الحديث مع المعوذتين'
         },
         {
-          id: 'm5',
-          title: 'حسبي الله لا إله إلا هو',
-          count: 7,
-          text: 'حَسْبِيَ اللَّهُ لَا إِلَهَ إِلَّا هُوَ، عَلَيْهِ تَوَكَّلْتُ، وَهُوَ رَبُّ الْعَرْشِ الْعَظِيمِ.',
-          benefit: 'كفاية من هموم الدنيا والآخرة بإذن الله.',
-          source: 'رواه ابن السني',
-          hadith: 'من قالها سبع مرات كفاه الله ما أهمه.'
+          id: 'm5', title: 'أصبحنا وأصبح الملك لله', count: 1,
+          text: 'أَصْبَحْنا وَأَصْبَحَ المُلْكُ لله وَالحَمدُ لله، لا إلهَ إلاّ اللّهُ وَحدَهُ لا شَريكَ لهُ، لهُ المُلكُ ولهُ الحَمْد، وهُوَ على كلّ شَيءٍ قدير، رَبِّ أسْأَلُكَ خَيرَ ما في هذا اليوم وَخَيرَ ما بَعْدَه، وَأَعوذُ بِكَ مِنْ شَرِّ ما في هذا اليوم وَشَرِّ ما بَعْدَه، رَبِّ أَعوذُ بِكَ مِنَ الْكَسَلِ وَسوءِ الْكِبَر، رَبِّ أَعوذُ بِكَ مِنْ عَذابٍ في النّارِ وَعَذابٍ في القَبْر.',
+          benefit: 'دعاء جامع لخير اليوم والاستعاذة من شره.', source: 'رواه مسلم', mention: 'حديث'
         },
         {
-          id: 'm6',
-          title: 'بسم الله الذي لا يضر',
-          count: 3,
-          text: 'بِسْمِ اللَّهِ الَّذِي لَا يَضُرُّ مَعَ اسْمِهِ شَيْءٌ فِي الْأَرْضِ وَلَا فِي السَّمَاءِ، وَهُوَ السَّمِيعُ الْعَلِيمُ.',
-          benefit: 'حفظ من الضرر بإذن الله.',
-          source: 'رواه ابن ماجه',
-          hadith: 'لم يضره من الله شيء.'
+          id: 'm6', title: 'سيّد الاستغفار', count: 1,
+          text: 'اللّهمَّ أَنْتَ رَبِّي لا إلهَ إلاّ أَنْتَ، خَلَقْتَني وَأَنا عَبْدُك، وَأَنا عَلى عَهْدِكَ وَوَعْدِكَ ما اسْتَطَعْت، أَعوذُبِكَ مِنْ شَرِّ ما صَنَعْت، أَبوءُ لَكَ بِنِعْمَتِكَ عَلَيَّ وَأَبوءُ بِذَنْبي فَاغْفِرْ لي فَإِنَّهُ لا يَغْفِرُ الذُّنوبَ إِلاّ أَنْتَ.',
+          benefit: 'من قاله موقنًا به حين يصبح ثم مات من يومه دخل الجنة.', source: 'رواه البخاري', mention: 'حديث صحيح'
         },
         {
-          id: 'm7',
-          title: 'اللهم بك أصبحنا',
-          count: 1,
-          text: 'اللَّهُمَّ بِكَ أَصْبَحْنَا، وَبِكَ أَمْسَيْنَا، وَبِكَ نَحْيَا، وَبِكَ نَمُوتُ، وَإِلَيْكَ النُّشُورُ.',
-          benefit: 'تجديد التوكل واستحضار أن الحياة والموت بيد الله.',
-          source: 'رواه الترمذي',
-          hadith: 'ورد في الحديث.'
+          id: 'm7', title: 'اللهم إني أصبحت أشهدك', count: 4,
+          text: 'اللّهُمَّ إِنِّي أَصْبَحْتُ أُشْهِدُك، وَأُشْهِدُ حَمَلَةَ عَرْشِك، وَمَلَائِكَتَكَ، وَجَميعَ خَلْقِك، أَنَّكَ أَنْتَ اللهُ لا إلهَ إلاّ أَنْتَ وَحْدَكَ لا شَريكَ لَك، وَأَنَّ مُحَمّداً عَبْدُكَ وَرَسولُك.',
+          benefit: 'من قالها أربع مرات أعتقه الله من النار.', source: 'رواه أبو داود', mention: 'حديث حسن'
         },
         {
-          id: 'm8',
-          title: 'سبحان الله وبحمده',
-          count: 100,
-          text: 'سُبْحَانَ اللَّهِ وَبِحَمْدِهِ.',
-          benefit: 'من قالها مائة مرة غُفرت ذنوبه وإن كانت مثل زبد البحر.',
-          source: 'رواه مسلم',
-          hadith: 'حديث صحيح مشهور.'
+          id: 'm8', title: 'اللهم ما أصبح بي من نعمة', count: 1,
+          text: 'اللّهُمَّ ما أَصْبَحَ بي مِنْ نِعْمَةٍ أَو بِأَحَدٍ مِنْ خَلْقِك، فَمِنْكَ وَحْدَكَ لا شريكَ لَك، فَلَكَ الْحَمْدُ وَلَكَ الشُّكْر.',
+          benefit: 'من قالها حين يصبح أدى شكر يومه.', source: 'رواه أبو داود', mention: 'حديث'
+        },
+        {
+          id: 'm9', title: 'حسبي الله لا إله إلا هو', count: 7,
+          text: 'حَسْبِيَ اللّهُ لا إلهَ إلاّ هُوَ عَلَيهِ تَوَكَّلتُ وَهُوَ رَبُّ العَرْشِ العَظيم.',
+          benefit: 'كفاية من الهموم بإذن الله.', source: 'رواه ابن السني وأبو داود', mention: 'ورد في الأثر'
+        },
+        {
+          id: 'm10', title: 'بسم الله الذي لا يضر', count: 3,
+          text: 'بِسمِ اللهِ الذي لا يَضُرُّ مَعَ اسمِهِ شَيءٌ في الأرْضِ وَلا في السّماءِ وَهوَ السّميعُ العَليم.',
+          benefit: 'حفظ من المصائب بإذن الله حتى المساء.', source: 'رواه أبو داود والترمذي وابن ماجه', mention: 'حديث'
+        },
+        {
+          id: 'm11', title: 'اللهم بك أصبحنا', count: 1,
+          text: 'اللّهُمَّ بِكَ أَصْبَحْنا وَبِكَ أَمْسَينا، وَبِكَ نَحْيا وَبِكَ نَمُوتُ وَإِلَيْكَ النُّشُور.',
+          benefit: 'استحضار التوكل على الله في أول النهار.', source: 'رواه الترمذي', mention: 'حديث'
+        },
+        {
+          id: 'm12', title: 'أصبحنا على فطرة الإسلام', count: 1,
+          text: 'أَصْبَحْنا عَلَى فِطْرَةِ الإسْلاَمِ، وَعَلَى كَلِمَةِ الإِخْلاَصِ، وَعَلَى دِينِ نَبِيِّنَا مُحَمَّدٍ صَلَّى اللهُ عَلَيْهِ وَسَلَّمَ، وَعَلَى مِلَّةِ أَبِينَا إِبْرَاهِيمَ حَنِيفاً مُسْلِماً وَمَا كَانَ مِنَ المُشْرِكِينَ.',
+          benefit: 'تجديد لمعاني التوحيد والاتباع.', source: 'رواه أحمد', mention: 'أثر مشهور'
+        },
+        {
+          id: 'm13', title: 'سبحان الله وبحمده عدد خلقه', count: 3,
+          text: 'سُبْحانَ اللهِ وَبِحَمْدِهِ عَدَدَ خَلْقِه، وَرِضا نَفْسِه، وَزِنَةَ عَرْشِه، وَمِدادَ كَلِماتِه.',
+          benefit: 'ذكر عظيم الأجر يُقال ثلاث مرات صباحًا.', source: 'رواه مسلم', mention: 'حديث صحيح'
+        },
+        {
+          id: 'm14', title: 'اللهم عافني في بدني', count: 3,
+          text: 'اللّهُمَّ عافِني في بَدَني، اللّهُمَّ عافِني في سَمْعي، اللّهُمَّ عافِني في بَصَري، لا إلهَ إلاّ أَنْتَ.',
+          benefit: 'دعاء بالعافية في البدن والسمع والبصر.', source: 'رواه أحمد', mention: 'حديث'
+        },
+        {
+          id: 'm15', title: 'اللهم إني أعوذ بك من الكفر والفقر', count: 3,
+          text: 'اللّهُمَّ إِنّي أَعوذُ بِكَ مِنَ الْكُفر، وَالفَقْر، وَأَعوذُ بِكَ مِنْ عَذابِ القَبْر، لا إلهَ إلاّ أَنْتَ.',
+          benefit: 'استعاذة جامعة من الكفر والفقر وعذاب القبر.', source: 'مما اشتهر في أذكار الصباح', mention: 'ورد في كتب الأذكار'
+        },
+        {
+          id: 'm16', title: 'اللهم إني أسألك العفو والعافية', count: 1,
+          text: 'اللّهُمَّ إِنِّي أسْأَلُكَ العَفْوَ وَالعافِيةَ في الدُّنْيا وَالآخِرَة، اللّهُمَّ إِنِّي أسْأَلُكَ العَفْوَ وَالعافِيةَ في ديني وَدُنْيايَ وَأهْلي وَمالي، اللّهُمَّ اسْتُرْ عوْراتي وَآمِنْ رَوْعاتي، اللّهُمَّ احْفَظْني مِن بَينِ يَدَيَّ وَمِن خَلْفي وَعَن يَميني وَعَن شِمالي، وَمِن فَوْقي، وَأَعوذُ بِعَظَمَتِكَ أَن أُغتالَ مِن تَحْتي.',
+          benefit: 'دعاء شامل للحفظ والعافية.', source: 'رواه أبو داود', mention: 'حديث'
+        },
+        {
+          id: 'm17', title: 'يا حي يا قيوم برحمتك أستغيث', count: 3,
+          text: 'يَا حَيُّ يَا قيُّومُ بِرَحْمَتِكَ أسْتَغِيثُ أصْلِحْ لِي شَأنِي كُلَّهُ وَلاَ تَكِلْنِي إلَى نَفْسِي طَرْفَةَ عَيْنٍ.',
+          benefit: 'دعاء عظيم في الافتقار والتفويض.', source: 'رواه الترمذي', mention: 'حديث'
+        },
+        {
+          id: 'm18', title: 'اللهم عالم الغيب والشهادة', count: 1,
+          text: 'اللّهُمَّ عالِمَ الغَيْبِ وَالشّهادَةِ فاطِرَ السّماواتِ وَالأرْضِ رَبَّ كلِّ شَيءٍ وَمَليكَه، أَشْهَدُ أَنْ لا إِلهَ إِلاّ أَنْت، أَعوذُ بِكَ مِن شَرِّ نَفْسي وَمِن شَرِّ الشَّيْطانِ وَشِرْكِهِ، وَأَنْ أَقْتَرِفَ عَلى نَفْسي سوءاً أَوْ أَجُرَّهُ إِلى مُسْلِم.',
+          benefit: 'استعاذة من شر النفس والشيطان.', source: 'رواه الترمذي وأبو داود', mention: 'حديث'
+        },
+        {
+          id: 'm19', title: 'اللهم صل وسلم على نبينا محمد', count: 10,
+          text: 'اللَّهُمَّ صَلِّ وَسَلِّمْ وَبَارِكْ على نَبِيِّنَا مُحمَّد.',
+          benefit: 'من صلى على النبي ﷺ عشرًا صباحًا وعشرًا مساءً أدركته شفاعته يوم القيامة.', source: 'رواه الطبراني', mention: 'ورد في الحديث'
+        },
+        {
+          id: 'm20', title: 'لا إله إلا الله وحده لا شريك له', count: 100,
+          text: 'لَا إلَه إلّا اللهُ وَحْدَهُ لَا شَرِيكَ لَهُ، لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ وَهُوَ عَلَى كُلِّ شَيْءِ قَدِيرِ.',
+          benefit: 'من قالها مائة مرة في يوم كُتبت له مئة حسنة ومُحيت عنه مئة سيئة وكانت له حرزًا من الشيطان.', source: 'رواه البخاري ومسلم', mention: 'حديث صحيح'
+        },
+        {
+          id: 'm21', title: 'سبحان الله وبحمده', count: 100,
+          text: 'سُبْحانَ اللهِ وَبِحَمْدِهِ.',
+          benefit: 'من قالها مائة مرة غُفرت ذنوبه وإن كانت مثل زبد البحر.', source: 'رواه مسلم', mention: 'حديث صحيح'
+        },
+        {
+          id: 'm22', title: 'أستغفر الله وأتوب إليه', count: 100,
+          text: 'أَسْتَغْفِرُ اللهَ وَأَتُوبُ إِلَيْهِ.',
+          benefit: 'استغفار يومي عظيم الأثر.', source: 'رواه البخاري', mention: 'ثابت في السنة'
         }
       ],
+
       evening: [
         {
-          id: 'e1',
-          title: 'آية الكرسي',
-          count: 1,
-          text: 'بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيمِ • اللَّهُ لَا إِلَٰهَ إِلَّا هُوَ الْحَيُّ الْقَيُّومُ ۚ لَا تَأْخُذُهُ سِنَةٌ وَلَا نَوْمٌ ۚ لَهُ مَا فِي السَّمَاوَاتِ وَمَا فِي الْأَرْضِ... وَهُوَ الْعَلِيُّ الْعَظِيمُ.',
-          benefit: 'من قالها حين يمسي أُجير من الجن حتى يصبح.',
-          source: 'آية الكرسي — سورة البقرة 255',
-          hadith: 'ورد في الأثر: من قالها حين يمسي أُجير من الجن حتى يصبح.'
+          id: 'e1', title: 'آية الكرسي', count: 1,
+          text: 'بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيمِ\nاللّهُ لاَ إِلَهَ إِلاَّ هُوَ الْحَيُّ الْقَيُّومُ لاَ تَأْخُذُهُ سِنَةٌ وَلاَ نَوْمٌ لَّهُ مَا فِي السَّمَاوَاتِ وَمَا فِي الأَرْضِ مَن ذَا الَّذِي يَشْفَعُ عِنْدَهُ إِلاَّ بِإِذْنِهِ يَعْلَمُ مَا بَيْنَ أَيْدِيهِمْ وَمَا خَلْفَهُمْ وَلاَ يُحِيطُونَ بِشَيْءٍ مِّنْ عِلْمِهِ إِلاَّ بِمَا شَاء وَسِعَ كُرْسِيُّهُ السَّمَاوَاتِ وَالأَرْضَ وَلاَ يَؤُودُهُ حِفْظُهُمَا وَهُوَ الْعَلِيُّ الْعَظِيمُ.',
+          benefit: 'من قالها حين يمسي أُجير من الجن حتى يصبح.', source: 'آية الكرسي — سورة البقرة 255', mention: 'وردت فضيلتها في الحديث'
         },
         {
-          id: 'e2',
-          title: 'الإخلاص والفلق والناس',
-          count: 3,
-          text: 'قُلْ هُوَ اللَّهُ أَحَدٌ • قُلْ أَعُوذُ بِرَبِّ الْفَلَقِ • قُلْ أَعُوذُ بِرَبِّ النَّاسِ.',
-          benefit: 'تكفي العبد من كل شيء إذا قالها صباحًا ومساءً.',
-          source: 'سور الإخلاص والفلق والناس',
-          hadith: 'من قالها حين يصبح وحين يمسي كفته من كل شيء.'
+          id: 'e2', title: 'الإخلاص والفلق والناس', count: 3,
+          text: 'تُقرأ هذه السور الثلاث: {قُلْ هُوَ اللَّهُ أَحَدٌ}، {قُلْ أَعُوذُ بِرَبِّ الْفَلَقِ}، {قُلْ أَعُوذُ بِرَبِّ النَّاسِ}.',
+          benefit: 'من قالها حين يصبح وحين يمسي كفته من كل شيء.', source: 'سور الإخلاص والفلق والناس', mention: 'حديث'
         },
         {
-          id: 'e3',
-          title: 'أمسينا وأمسى الملك لله',
-          count: 1,
-          text: 'أَمْسَيْنَا وَأَمْسَى الْمُلْكُ لِلَّهِ وَالْحَمْدُ لِلَّهِ، لَا إِلَهَ إِلَّا اللَّهُ وَحْدَهُ لَا شَرِيكَ لَهُ... رَبِّ أَعُوذُ بِكَ مِنْ عَذَابٍ فِي النَّارِ وَعَذَابٍ فِي الْقَبْرِ.',
-          benefit: 'دعاء جامع لخير الليلة والاستعاذة من شرها.',
-          source: 'رواه مسلم',
-          hadith: 'مذكور في صحيح مسلم.'
+          id: 'e3', title: 'أمسينا وأمسى الملك لله', count: 1,
+          text: 'أَمْسَيْنا وَأَمْسى الملكُ لله وَالحَمدُ لله، لا إلهَ إلاّ اللّهُ وَحدَهُ لا شَريكَ لهُ، لهُ المُلكُ ولهُ الحَمْد، وهُوَ على كلّ شَيءٍ قدير، رَبِّ أسْأَلُكَ خَيرَ ما في هذهِ اللَّيْلَةِ وَخَيرَ ما بَعْدَها، وَأَعوذُ بِكَ مِنْ شَرِّ ما في هذهِ اللَّيْلةِ وَشَرِّ ما بَعْدَها، رَبِّ أَعوذُبِكَ مِنَ الْكَسَلِ وَسوءِ الْكِبَر، رَبِّ أَعوذُ بِكَ مِنْ عَذابٍ في النّارِ وَعَذابٍ في القَبْر.',
+          benefit: 'دعاء جامع لخير الليلة والاستعاذة من شرها.', source: 'رواه مسلم', mention: 'حديث'
         },
         {
-          id: 'e4',
-          title: 'دعاء سيّد الاستغفار',
-          count: 1,
-          text: 'اللَّهُمَّ أَنْتَ رَبِّي لَا إِلَهَ إِلَّا أَنْتَ، خَلَقْتَنِي وَأَنَا عَبْدُكَ... فَاغْفِرْ لِي فَإِنَّهُ لَا يَغْفِرُ الذُّنُوبَ إِلَّا أَنْتَ.',
-          benefit: 'من قالها موقنًا بها حين يمسي ثم مات من ليلته دخل الجنة.',
-          source: 'رواه البخاري',
-          hadith: 'مذكور في الحديث الصحيح.'
+          id: 'e4', title: 'سيّد الاستغفار', count: 1,
+          text: 'اللّهمَّ أَنْتَ رَبِّي لا إلهَ إلاّ أَنْتَ، خَلَقْتَني وَأَنا عَبْدُك، وَأَنا عَلى عَهْدِكَ وَوَعْدِكَ ما اسْتَطَعْت، أَعوذُبِكَ مِنْ شَرِّ ما صَنَعْت، أَبوءُ لَكَ بِنِعْمَتِكَ عَلَيَّ وَأَبوءُ بِذَنْبي فَاغْفِرْ لي فَإِنَّهُ لا يَغْفِرُ الذُّنوبَ إِلاّ أَنْتَ.',
+          benefit: 'من قاله موقنًا به حين يمسي ثم مات من ليلته دخل الجنة.', source: 'رواه البخاري', mention: 'حديث صحيح'
         },
         {
-          id: 'e5',
-          title: 'اللهم إني أمسيت أشهدك',
-          count: 4,
-          text: 'اللَّهُمَّ إِنِّي أَمْسَيْتُ أُشْهِدُكَ، وَأُشْهِدُ حَمَلَةَ عَرْشِكَ، وَمَلَائِكَتَكَ، وَجَمِيعَ خَلْقِكَ، أَنَّكَ أَنْتَ اللَّهُ لَا إِلَهَ إِلَّا أَنْتَ وَحْدَكَ لَا شَرِيكَ لَكَ، وَأَنَّ مُحَمَّدًا عَبْدُكَ وَرَسُولُكَ.',
-          benefit: 'من قالها أعتقه الله من النار.',
-          source: 'رواه أبو داود',
-          hadith: 'ورد في الحديث.'
+          id: 'e5', title: 'اللهم إني أمسيت أشهدك', count: 4,
+          text: 'اللّهُمَّ إِنِّي أَمسيتُ أُشْهِدُك، وَأُشْهِدُ حَمَلَةَ عَرْشِك، وَمَلَائِكَتَكَ، وَجَميعَ خَلْقِك، أَنَّكَ أَنْتَ اللهُ لا إلهَ إلاّ أَنْتَ وَحْدَكَ لا شَريكَ لَك، وَأَنَّ مُحَمّداً عَبْدُكَ وَرَسولُك.',
+          benefit: 'من قالها أربع مرات أعتقه الله من النار.', source: 'رواه أبو داود', mention: 'حديث حسن'
         },
         {
-          id: 'e6',
-          title: 'اللهم ما أمسى بي من نعمة',
-          count: 1,
-          text: 'اللَّهُمَّ مَا أَمْسَى بِي مِنْ نِعْمَةٍ أَوْ بِأَحَدٍ مِنْ خَلْقِكَ فَمِنْكَ وَحْدَكَ لَا شَرِيكَ لَكَ، فَلَكَ الْحَمْدُ وَلَكَ الشُّكْرُ.',
-          benefit: 'من قالها حين يمسي فقد أدّى شكر ليلته.',
-          source: 'رواه أبو داود',
-          hadith: 'ورد في الحديث.'
+          id: 'e6', title: 'اللهم ما أمسى بي من نعمة', count: 1,
+          text: 'اللّهُمَّ ما أَمسى بي مِنْ نِعْمَةٍ أَو بِأَحَدٍ مِنْ خَلْقِك، فَمِنْكَ وَحْدَكَ لا شريكَ لَك، فَلَكَ الْحَمْدُ وَلَكَ الشُّكْر.',
+          benefit: 'من قالها حين يمسي أدى شكر ليلته.', source: 'رواه أبو داود', mention: 'حديث'
         },
         {
-          id: 'e7',
-          title: 'اللهم بك أمسينا',
-          count: 1,
-          text: 'اللَّهُمَّ بِكَ أَمْسَيْنَا، وَبِكَ أَصْبَحْنَا، وَبِكَ نَحْيَا، وَبِكَ نَمُوتُ، وَإِلَيْكَ الْمَصِيرُ.',
-          benefit: 'تجديد التفويض لله عند دخول الليل.',
-          source: 'رواه الترمذي',
-          hadith: 'ورد في الحديث.'
+          id: 'e7', title: 'حسبي الله لا إله إلا هو', count: 7,
+          text: 'حَسْبِيَ اللّهُ لا إلهَ إلاّ هُوَ عَلَيهِ تَوَكَّلتُ وَهُوَ رَبُّ العَرْشِ العَظيم.',
+          benefit: 'كفاية من الهموم بإذن الله.', source: 'رواه ابن السني وأبو داود', mention: 'ورد في الأثر'
         },
         {
-          id: 'e8',
-          title: 'الصلاة على النبي ﷺ',
-          count: 10,
-          text: 'اللَّهُمَّ صَلِّ وَسَلِّمْ وَبَارِكْ عَلَى نَبِيِّنَا مُحَمَّدٍ.',
-          benefit: 'من صلى على النبي ﷺ حين يصبح وحين يمسي أدركته شفاعته يوم القيامة.',
-          source: 'رواه الطبراني',
-          hadith: 'ورد في الحديث.'
+          id: 'e8', title: 'بسم الله الذي لا يضر', count: 3,
+          text: 'بِسمِ اللهِ الذي لا يَضُرُّ مَعَ اسمِهِ شَيءٌ في الأرْضِ وَلا في السّماءِ وَهوَ السّميعُ العَليم.',
+          benefit: 'حفظ من المصائب بإذن الله حتى الصباح.', source: 'رواه أبو داود والترمذي وابن ماجه', mention: 'حديث'
+        },
+        {
+          id: 'e9', title: 'اللهم بك أمسينا', count: 1,
+          text: 'اللّهُمَّ بِكَ أَمْسَينا وَبِكَ أَصْبَحْنا، وَبِكَ نَحْيا وَبِكَ نَمُوتُ وَإِلَيْكَ الْمَصِيرُ.',
+          benefit: 'تفويض لله عند دخول الليل.', source: 'رواه الترمذي', mention: 'حديث'
+        },
+        {
+          id: 'e10', title: 'أمسينا على فطرة الإسلام', count: 1,
+          text: 'أَمْسَيْنَا عَلَى فِطْرَةِ الإسْلاَمِ، وَعَلَى كَلِمَةِ الإِخْلاَصِ، وَعَلَى دِينِ نَبِيِّنَا مُحَمَّدٍ صَلَّى اللهُ عَلَيْهِ وَسَلَّمَ، وَعَلَى مِلَّةِ أَبِينَا إِبْرَاهِيمَ حَنِيفاً مُسْلِماً وَمَا كَانَ مِنَ المُشْرِكِينَ.',
+          benefit: 'تجديد لمعاني التوحيد والاتباع.', source: 'رواه أحمد', mention: 'أثر مشهور'
+        },
+        {
+          id: 'e11', title: 'سبحان الله وبحمده عدد خلقه', count: 3,
+          text: 'سُبْحانَ اللهِ وَبِحَمْدِهِ عَدَدَ خَلْقِه، وَرِضا نَفْسِه، وَزِنَةَ عَرْشِه، وَمِدادَ كَلِماتِه.',
+          benefit: 'ذكر عظيم الأجر.', source: 'رواه مسلم', mention: 'حديث صحيح'
+        },
+        {
+          id: 'e12', title: 'اللهم عافني في بدني', count: 3,
+          text: 'اللّهُمَّ عافِني في بَدَني، اللّهُمَّ عافِني في سَمْعي، اللّهُمَّ عافِني في بَصَري، لا إلهَ إلاّ أَنْتَ.',
+          benefit: 'دعاء بالعافية.', source: 'رواه أحمد', mention: 'حديث'
+        },
+        {
+          id: 'e13', title: 'اللهم إني أسألك العفو والعافية', count: 1,
+          text: 'اللّهُمَّ إِنِّي أسْأَلُكَ العَفْوَ وَالعافِيةَ في الدُّنْيا وَالآخِرَة، اللّهُمَّ إِنِّي أسْأَلُكَ العَفْوَ وَالعافِيةَ في ديني وَدُنْيايَ وَأهْلي وَمالي، اللّهُمَّ اسْتُرْ عوْراتي وَآمِنْ رَوْعاتي، اللّهُمَّ احْفَظْني مِن بَينِ يَدَيَّ وَمِن خَلْفي وَعَن يَميني وَعَن شِمالي، وَمِن فَوْقي، وَأَعوذُ بِعَظَمَتِكَ أَن أُغتالَ مِن تَحْتي.',
+          benefit: 'دعاء شامل للحفظ والعافية.', source: 'رواه أبو داود', mention: 'حديث'
+        },
+        {
+          id: 'e14', title: 'يا حي يا قيوم برحمتك أستغيث', count: 3,
+          text: 'يَا حَيُّ يَا قيُّومُ بِرَحْمَتِكَ أسْتَغِيثُ أصْلِحْ لِي شَأنِي كُلَّهُ وَلاَ تَكِلْنِي إلَى نَفْسِي طَرْفَةَ عَيْنٍ.',
+          benefit: 'دعاء عظيم في الافتقار والتفويض.', source: 'رواه الترمذي', mention: 'حديث'
+        },
+        {
+          id: 'e15', title: 'أعوذ بكلمات الله التامات', count: 3,
+          text: 'أَعوذُ بِكَلِماتِ اللّهِ التّامّاتِ مِنْ شَرِّ ما خَلَق.',
+          benefit: 'حفظ في المساء بإذن الله.', source: 'مما ورد في أذكار المساء', mention: 'حديث'
+        },
+        {
+          id: 'e16', title: 'اللهم صل وسلم على نبينا محمد', count: 10,
+          text: 'اللَّهُمَّ صَلِّ وَسَلِّمْ وَبَارِكْ على نَبِيِّنَا مُحمَّد.',
+          benefit: 'من صلى على النبي ﷺ عشرًا مساءً أدركته شفاعته.', source: 'رواه الطبراني', mention: 'ورد في الحديث'
+        },
+        {
+          id: 'e17', title: 'سبحان الله وبحمده', count: 100,
+          text: 'سُبْحانَ اللهِ وَبِحَمْدِهِ.',
+          benefit: 'من قالها مائة مرة غُفرت ذنوبه وإن كانت مثل زبد البحر.', source: 'رواه مسلم', mention: 'حديث صحيح'
         }
       ],
+
       sleep: [
         {
-          id: 's1',
-          title: 'آية الكرسي قبل النوم',
-          count: 1,
-          text: 'اللَّهُ لَا إِلَٰهَ إِلَّا هُوَ الْحَيُّ الْقَيُّومُ... وَهُوَ الْعَلِيُّ الْعَظِيمُ.',
-          benefit: 'لا يزال على العبد من الله حافظ، ولا يقربه شيطان حتى يصبح.',
-          source: 'رواه البخاري',
-          hadith: 'مذكور في حديث أبي هريرة رضي الله عنه.'
+          id: 's1', title: 'آية الكرسي', count: 1,
+          text: 'اللَّهُ لاَ إِلَهَ إِلاَّ هُوَ الْحَيُّ الْقَيُّومُ لاَ تَأْخُذُهُ سِنَةٌ وَلاَ نَوْمٌ لَّهُ مَا فِي السَّمَوَاتِ وَمَا فِي الأَرْضِ مَن ذَا الَّذِي يَشْفَعُ عِنْدَهُ إِلاَّ بِإِذْنِهِ يَعْلَمُ مَا بَيْنَ أَيْدِيهِمْ وَمَا خَلْفَهُمْ وَلاَ يُحِيطُونَ بِشَيْءٍ مِّنْ عِلْمِهِ إِلاَّ بِمَا شَاء وَسِعَ كُرْسِيُّهُ السَّمَوَاتِ وَالأَرْضَ وَلاَ يَؤُودُهُ حِفْظُهُمَا وَهُوَ الْعَلِيُّ الْعَظِيمُ.',
+          benefit: 'لا يزال عليك من الله حافظ، ولا يقربك شيطان حتى تصبح.', source: 'سورة البقرة 255', mention: 'حديث صحيح'
         },
         {
-          id: 's2',
-          title: 'باسمك اللهم أموت وأحيا',
-          count: 1,
+          id: 's2', title: 'آخر آيتين من سورة البقرة', count: 1,
+          text: 'آمَنَ الرَّسُولُ بِمَا أُنزِلَ إِلَيْهِ مِن رَّبِّهِ وَالْمُؤْمِنُونَ... رَبَّنَا لاَ تُؤَاخِذْنَا إِن نَّسِينَا أَوْ أَخْطَأْنَا... فَانصُرْنَا عَلَى الْقَوْمِ الْكَافِرِينَ.',
+          benefit: 'تكفي من قرأهما في ليلته.', source: 'سورة البقرة 285-286', mention: 'حديث صحيح'
+        },
+        {
+          id: 's3', title: 'الإخلاص والفلق والناس مع النفث', count: 3,
+          text: 'يَجْمَعُ كَفَّيْهِ ثُمَّ يَنْفُثُ فِيهِمَا فَيَقْرَأُ فِيهِمَا: قُلْ هُوَ اللَّهُ أَحَدٌ، وَقُلْ أَعُوذُ بِرَبِّ الْفَلَقِ، وَقُلْ أَعُوذُ بِرَبِّ النَّاسِ، ثم يمسح بهما ما استطاع من جسده، يبدأ بهما على رأسه ووجهه وما أقبل من جسده.',
+          benefit: 'من هدي النبي ﷺ عند النوم للحفظ والوقاية.', source: 'رواه البخاري', mention: 'حديث صحيح'
+        },
+        {
+          id: 's4', title: 'سورة الكافرون', count: 1,
+          text: 'بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيمِ\nقُلۡ يَٰٓأَيُّهَا ٱلۡكَٰفِرُونَ ﴿١﴾ لَآ أَعۡبُدُ مَا تَعۡبُدُونَ ﴿٢﴾ وَلَآ أَنتُمۡ عَٰبِدُونَ مَآ أَعۡبُدُ ﴿٣﴾ وَلَآ أَنَا۠ عَابِدٞ مَّا عَبَدتُّمۡ ﴿٤﴾ وَلَآ أَنتُمۡ عَٰبِدُونَ مَآ أَعۡبُدُ ﴿٥﴾ لَكُمۡ دِينُكُمۡ وَلِيَ دِينِ ﴿٦﴾',
+          benefit: 'من السنة قراءتها قبل النوم.', source: 'سورة الكافرون', mention: 'وردت في السنة'
+        },
+        {
+          id: 's5', title: 'باسمك ربي وضعت جنبي', count: 1,
+          text: 'بِاسْمِكَ رَبِّي وَضَعْتُ جَنْبِي، وَبِكَ أَرْفَعُهُ، فَإِن أَمْسَكْتَ نَفْسِي فارْحَمْهَا، وَإِنْ أَرْسَلْتَهَا فَاحْفَظْهَا، بِمَا تَحْفَظُ بِهِ عِبَادَكَ الصَّالِحِينَ.',
+          benefit: 'دعاء عظيم عند الاضطجاع للنوم.', source: 'رواه البخاري ومسلم', mention: 'حديث صحيح'
+        },
+        {
+          id: 's6', title: 'اللهم إنك خلقت نفسي', count: 1,
+          text: 'اللَّهُمَّ إِنَّكَ خَلَقْتَ نَفْسِي وَأَنْتَ تَوَفَّاهَا، لَكَ مَمَاتُهَا وَمَحْياهَا، إِنْ أَحْيَيْتَهَا فَاحْفَظْهَا، وَإِنْ أَمَتَّهَا فَاغْفِرْ لَهَا. اللَّهُمَّ إِنِّي أَسْأَلُكَ العَافِيَةَ.',
+          benefit: 'تفويض وتسليم وحفظ.', source: 'رواه مسلم', mention: 'حديث'
+        },
+        {
+          id: 's7', title: 'اللهم قني عذابك يوم تبعث عبادك', count: 1,
+          text: 'اللَّهُمَّ قِنِي عَذَابَكَ يَوْمَ تَبْعَثُ عِبَادَكَ.',
+          benefit: 'دعاء عند الاضطجاع.', source: 'رواه أبو داود', mention: 'حديث'
+        },
+        {
+          id: 's8', title: 'باسمك اللهم أموت وأحيا', count: 1,
           text: 'بِاسْمِكَ اللَّهُمَّ أَمُوتُ وَأَحْيَا.',
-          benefit: 'ذكر عظيم عند النوم واستحضار التوكل على الله.',
-          source: 'رواه البخاري',
-          hadith: 'ورد في الحديث.'
+          benefit: 'ذكر النوم المشهور عن النبي ﷺ.', source: 'رواه البخاري', mention: 'حديث صحيح'
         },
         {
-          id: 's3',
-          title: 'تسبيح فاطمة',
-          count: 1,
-          text: 'سُبْحَانَ اللَّهِ 33 مرة، وَالْحَمْدُ لِلَّهِ 33 مرة، وَاللَّهُ أَكْبَرُ 34 مرة.',
-          benefit: 'خير من خادم وفيه إعانة على أمر الدنيا والعبادة.',
-          source: 'رواه البخاري ومسلم',
-          hadith: 'مذكور في الحديث الصحيح.'
+          id: 's9', title: 'تسبيح فاطمة قبل النوم', count: 100,
+          text: 'سُبْحَانَ اللَّهِ (ثلاثاً وثلاثين)، وَالْحَمْدُ لِلَّهِ (ثلاثاً وثلاثين)، وَاللَّهُ أَكْبَرُ (أربعاً وثلاثين).',
+          benefit: 'خير من خادم وفيه إعانة على التعب والقيام.', source: 'رواه البخاري ومسلم', mention: 'حديث صحيح'
         },
         {
-          id: 's4',
-          title: 'الإخلاص والمعوذتان مع النفث',
-          count: 3,
-          text: 'تقرأ قُلْ هُوَ اللَّهُ أَحَدٌ، وَقُلْ أَعُوذُ بِرَبِّ الْفَلَقِ، وَقُلْ أَعُوذُ بِرَبِّ النَّاسِ، ثم تنفث في كفيك وتمسح بهما ما استطعت من جسدك.',
-          benefit: 'حفظ ووقاية عند النوم.',
-          source: 'رواه البخاري',
-          hadith: 'ورد في حديث عائشة رضي الله عنها.'
+          id: 's10', title: 'اللهم رب السماوات السبع', count: 1,
+          text: 'اللَّهُمَّ رَبَّ السَّمَوَاتِ السَّبْعِ وَرَبَّ الأَرْضِ، وَرَبَّ الْعَرْشِ الْعَظِيمِ، رَبَّنَا وَرَبَّ كُلِّ شَيْءٍ، فَالِقَ الْحَبِّ وَالنَّوَى، وَمُنْزِلَ التَّوْرَاةِ وَالْإِنْجِيلِ وَالْفُرْقَانِ، أَعُوذُ بِكَ مِنْ شَرِّ كُلِّ شَيْءٍ أَنْتَ آخِذٌ بِنَاصِيَتِهِ. اللَّهُمَّ أَنْتَ الأَوَّلُ فَلَيْسَ قَبْلَكَ شَيْءٌ، وَأَنْتَ الآخِرُ فَلَيْسَ بَعْدَكَ شَيْءٌ، وَأَنْتَ الظَّاهِرُ فَلَيْسَ فَوْقَكَ شَيْءٌ، وَأَنْتَ الْبَاطِنُ فَلَيْسَ دُونَكَ شَيْءٌ، اقْضِ عَنَّا الدَّيْنَ وَأَغْنِنَا مِنَ الْفَقْرِ.',
+          benefit: 'دعاء عظيم في اللجوء إلى الله قبل النوم.', source: 'رواه مسلم', mention: 'حديث'
+        },
+        {
+          id: 's11', title: 'الحمد لله الذي أطعمنا وسقانا', count: 1,
+          text: 'الْحَمْدُ لِلَّهِ الَّذِي أَطْعَمَنَا وَسَقَانَا، وَكَفَانَا، وَآوَانَا، فَكَمْ مِمَّنْ لاَ كَافِيَ لَهُ وَلاَ مُؤْوِيَ.',
+          benefit: 'شكر لله على الكفاية والمأوى.', source: 'رواه مسلم', mention: 'حديث'
+        },
+        {
+          id: 's12', title: 'اللهم عالم الغيب والشهادة', count: 1,
+          text: 'اللَّهُمَّ عَالِمَ الغَيْبِ وَالشَّهَادَةِ فَاطِرَ السَّمَوَاتِ وَالْأَرْضِ، رَبَّ كُلِّ شَيْءٍ وَمَلِيكَهُ، أَشْهَدُ أَنْ لاَ إِلَهَ إِلاَّ أَنْتَ، أَعُوذُ بِكَ مِنْ شَرِّ نَفْسِي، وَمِنْ شَرِّ الشَّيْطَانِ وَشِرْكِهِ، وَأَنْ أَقْتَرِفَ عَلَى نَفْسِي سُوءاً، أَوْ أَجُرَّهُ إِلَى مُسْلِمٍ.',
+          benefit: 'استعاذة جامعة قبل النوم.', source: 'رواه أبو داود والترمذي', mention: 'حديث'
+        },
+        {
+          id: 's13', title: 'اللهم أسلمت نفسي إليك', count: 1,
+          text: 'اللَّهُمَّ أَسْلَمْتُ نَفْسِي إِلَيْكَ، وَفَوَّضْتُ أَمْرِي إِلَيْكَ، وَوَجَّهْتُ وَجْهِي إِلَيْكَ، وَأَلْجَأْتُ ظَهْرِي إِلَيْكَ، رَغْبَةً وَرَهْبَةً إِلَيْكَ، لاَ مَلْجَأَ وَلاَ مَنْجَا مِنْكَ إِلاَّ إِلَيْكَ، آمَنْتُ بِكِتَابِكَ الَّذِي أَنْزَلْتَ، وَبِنَبِيِّكَ الَّذِي أَرْسَلْتَ.',
+          benefit: 'من قاله ثم مات مات على الفطرة.', source: 'رواه البخاري ومسلم', mention: 'حديث صحيح'
         }
       ],
-      quran: [],
-      other: []
+
+      prayer: [
+        {
+          id: 'p1', title: 'سنة الفجر', count: 1,
+          text: 'ركعتان قبل صلاة الفجر، وهما من آكد السنن الرواتب.',
+          benefit: 'الركعتان قبل الفجر من السنن المؤكدة.', source: 'ضمن السنن الرواتب', mention: 'سنة راتبة'
+        },
+        {
+          id: 'p2', title: 'سنة الظهر', count: 1,
+          text: 'أربع ركعات قبل الظهر، وركعتان بعد الظهر.',
+          benefit: 'الظهر أكثر الصلوات الرواتب في اليوم.', source: 'من حديث الاثنتي عشرة ركعة', mention: 'سنة راتبة'
+        },
+        {
+          id: 'p3', title: 'قبل العصر', count: 1,
+          text: 'أربع ركعات قبل العصر من السنن المستحبة عند كثير من أهل العلم.',
+          benefit: 'ورد الدعاء بالرحمة لمن صلى قبل العصر أربعًا.', source: 'ورد في الحديث', mention: 'سنة غير راتبة مؤكدة'
+        },
+        {
+          id: 'p4', title: 'سنة المغرب', count: 1,
+          text: 'ركعتان بعد المغرب، ويُذكر أيضًا جواز ركعتين قبل المغرب لمن شاء.',
+          benefit: 'بعد المغرب من الرواتب الثابتة.', source: 'من السنن الرواتب', mention: 'سنة راتبة'
+        },
+        {
+          id: 'p5', title: 'سنة العشاء', count: 1,
+          text: 'ركعتان بعد العشاء.',
+          benefit: 'من تمام السنن الرواتب اليومية.', source: 'من حديث الاثنتي عشرة ركعة', mention: 'سنة راتبة'
+        },
+        {
+          id: 'p6', title: 'بعد الصلاة مباشرة', count: 3,
+          text: 'أستغفر الله، أستغفر الله، أستغفر الله، ثم: اللهم أنت السلام ومنك السلام تباركت يا ذا الجلال والإكرام.',
+          benefit: 'من أذكار ما بعد السلام من الصلاة.', source: 'ثابت في صحيح مسلم', mention: 'ذكر بعد الصلاة'
+        },
+        {
+          id: 'p7', title: 'تسبيح ما بعد الصلاة', count: 100,
+          text: 'سُبْحَانَ الله 33، وَالْحَمْدُ لله 33، وَاللهُ أَكْبَر 33، وتُتم المائة: لا إله إلا الله وحده لا شريك له، له الملك وله الحمد وهو على كل شيء قدير.',
+          benefit: 'من أعظم الأذكار بعد الفريضة، وفيه مغفرة الذنوب وإن كانت مثل زبد البحر.', source: 'رواه مسلم', mention: 'ذكر بعد الصلاة'
+        },
+        {
+          id: 'p8', title: 'ملخص الرواتب اليومية', count: 12,
+          text: 'المجموع المشهور في السنن الرواتب: ركعتان قبل الفجر، أربع قبل الظهر، ركعتان بعد الظهر، ركعتان بعد المغرب، ركعتان بعد العشاء.',
+          benefit: 'من حافظ عليها بُني له بيت في الجنة.', source: 'حديث الاثنتي عشرة ركعة', mention: 'حديث صحيح'
+        }
+      ],
+
+      quran: []
     };
 
     const state = {
       currentTab: 'morning',
       autoMode: true,
-      fontScale: Number(localStorage.getItem('reetal-font-scale') || 1),
       search: '',
-      onlyIncomplete: false,
+      onlyRemaining: false,
+      fontScale: Number(localStorage.getItem('reetal-font-scale-v2') || 1),
       speakingId: null
     };
 
-    const grid = document.getElementById('cardsGrid');
     const tabsWrap = document.getElementById('tabs');
-    const searchInput = document.getElementById('searchInput');
-    const onlyIncomplete = document.getElementById('onlyIncomplete');
-    const progressBar = document.getElementById('progressBar');
-    const progressLabel = document.getElementById('progressLabel');
-    const completedLabel = document.getElementById('completedLabel');
-    const currentModeLabel = document.getElementById('currentModeLabel');
-    const todayLabel = document.getElementById('todayLabel');
+    const cards = document.getElementById('cards');
     const emptyState = document.getElementById('emptyState');
+    const searchInput = document.getElementById('searchInput');
+    const onlyRemaining = document.getElementById('onlyRemaining');
+    const currentSectionLabel = document.getElementById('currentSectionLabel');
+    const progressLabel = document.getElementById('progressLabel');
+    const progressBar = document.getElementById('progressBar');
+    const doneLabel = document.getElementById('doneLabel');
+    const dateLabel = document.getElementById('dateLabel');
+    const introText = document.getElementById('introText');
     const toast = document.getElementById('toast');
     const toggleAutoBtn = document.getElementById('toggleAuto');
 
     function todayKey() {
-      const now = new Date();
-      return `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}-${String(now.getDate()).padStart(2,'0')}`;
+      const d = new Date();
+      return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
     }
 
     function storageKey(tab) {
-      return `reetal-progress-${todayKey()}-${tab}`;
+      return `reetal-remaining-${todayKey()}-${tab}`;
     }
 
-    function getProgress(tab) {
+    function getRemainingMap(tab) {
       try {
         return JSON.parse(localStorage.getItem(storageKey(tab)) || '{}');
       } catch {
@@ -800,77 +1026,99 @@
       }
     }
 
-    function setProgress(tab, data) {
+    function setRemainingMap(tab, data) {
       localStorage.setItem(storageKey(tab), JSON.stringify(data));
     }
 
-    function detectModeByTime() {
+    function defaultRemaining(item) {
+      return item.count;
+    }
+
+    function remainingFor(tab, item) {
+      const map = getRemainingMap(tab);
+      const value = map[item.id];
+      return typeof value === 'number' ? value : defaultRemaining(item);
+    }
+
+    function setRemaining(tab, item, value) {
+      const map = getRemainingMap(tab);
+      map[item.id] = Math.max(0, Math.min(item.count, value));
+      setRemainingMap(tab, map);
+    }
+
+    function isDone(tab, item) {
+      return remainingFor(tab, item) === 0;
+    }
+
+    function detectByTime() {
       const hour = new Date().getHours();
       if (hour >= 5 && hour < 15) return 'morning';
       if (hour >= 15 && hour < 22) return 'evening';
       return 'sleep';
     }
 
-    function modeLabel(key) {
-      return ({ morning: 'أذكار الصباح', evening: 'أذكار المساء', sleep: 'أذكار النوم', quran: 'القرآن', other: 'أذكار أخرى' })[key] || '—';
+    function labelFor(tab) {
+      const match = tabs.find(t => t.key === tab);
+      return match ? match.label : '—';
     }
 
-    function formatToday() {
-      const d = new Date();
+    function formatDate() {
       return new Intl.DateTimeFormat('ar-EG', {
         weekday: 'long',
-        year: 'numeric',
+        day: 'numeric',
         month: 'long',
-        day: 'numeric'
-      }).format(d);
+        year: 'numeric'
+      }).format(new Date());
     }
 
-    function getItemCountValue(tab, itemId) {
-      const progress = getProgress(tab);
-      return progress[itemId] || 0;
-    }
-
-    function setItemCountValue(tab, itemId, value) {
-      const progress = getProgress(tab);
-      progress[itemId] = value;
-      setProgress(tab, progress);
-    }
-
-    function isComplete(tab, item) {
-      return getItemCountValue(tab, item.id) >= item.count;
-    }
-
-    function completionStats(tab) {
-      const items = adhkar[tab] || [];
-      if (!items.length) return { done: 0, total: 0, percent: 0 };
-      const done = items.filter(item => isComplete(tab, item)).length;
-      return { done, total: items.length, percent: Math.round((done / items.length) * 100) };
+    function statsFor(tab) {
+      const items = collections[tab] || [];
+      const total = items.length;
+      const done = items.filter(item => isDone(tab, item)).length;
+      const percent = total ? Math.round((done / total) * 100) : 0;
+      return { total, done, percent };
     }
 
     function showToast(message) {
       toast.textContent = message;
       toast.classList.add('show');
-      clearTimeout(showToast._t);
-      showToast._t = setTimeout(() => toast.classList.remove('show'), 2200);
+      clearTimeout(showToast.t);
+      showToast.t = setTimeout(() => toast.classList.remove('show'), 2200);
+    }
+
+    function updateHeader() {
+      const stats = statsFor(state.currentTab);
+      currentSectionLabel.textContent = labelFor(state.currentTab);
+      progressLabel.textContent = `${stats.percent}%`;
+      doneLabel.textContent = `${stats.done} / ${stats.total}`;
+      dateLabel.textContent = formatDate();
+      progressBar.style.width = `${stats.percent}%`;
+      introText.textContent = introMap[state.currentTab] || 'محتوى القسم الحالي.';
+      toggleAutoBtn.textContent = state.autoMode ? 'الوضع التلقائي: مفعّل' : 'الوضع التلقائي: يدوي';
+      document.documentElement.style.setProperty('--font-scale', state.fontScale);
+      localStorage.setItem('reetal-font-scale-v2', String(state.fontScale));
     }
 
     function renderTabs() {
       tabsWrap.innerHTML = '';
       tabs.forEach(tab => {
         const btn = document.createElement('button');
-        btn.className = `tab-btn ${state.currentTab === tab.key ? 'active' : ''} ${tab.coming ? 'coming' : ''}`;
-        btn.innerHTML = `${tab.title}<small>${tab.subtitle}</small>`;
+        btn.type = 'button';
+        btn.className = `tab ${state.currentTab === tab.key ? 'active' : ''} ${tab.soon ? 'soon' : ''}`;
+        btn.innerHTML = `${tab.label}<small>${tab.hint}</small>`;
+        btn.disabled = !!tab.soon;
+        btn.setAttribute('aria-current', state.currentTab === tab.key ? 'page' : 'false');
         btn.addEventListener('click', () => {
+          if (tab.soon) return;
           state.currentTab = tab.key;
           state.autoMode = false;
-          updateAutoButton();
           render();
         });
         tabsWrap.appendChild(btn);
       });
     }
 
-    function speakText(text, id) {
+    function speak(text, id) {
       if (!('speechSynthesis' in window)) {
         showToast('الاستماع غير مدعوم في هذا المتصفح.');
         return;
@@ -878,142 +1126,141 @@
       window.speechSynthesis.cancel();
       if (state.speakingId === id) {
         state.speakingId = null;
-        return render();
+        renderCards();
+        return;
       }
-      const utter = new SpeechSynthesisUtterance(text.replace(/•/g, ' '));
+      const utter = new SpeechSynthesisUtterance(text.replace(/\n/g, ' '));
       utter.lang = 'ar-SA';
-      utter.rate = 0.9;
-      utter.onend = () => { state.speakingId = null; render(); };
+      utter.rate = 0.92;
+      utter.onend = () => { state.speakingId = null; renderCards(); };
       state.speakingId = id;
       window.speechSynthesis.speak(utter);
-      render();
+      renderCards();
     }
 
     function copyText(text) {
-      navigator.clipboard.writeText(text).then(() => showToast('تم نسخ الذكر.'));
+      navigator.clipboard.writeText(text).then(() => showToast('تم نسخ النص.'));
     }
 
-    function itemMatches(item, query) {
-      const hay = `${item.title} ${item.text} ${item.benefit || ''} ${item.source || ''} ${item.hadith || ''}`.toLowerCase();
-      return hay.includes(query.toLowerCase());
+    function matches(item, query) {
+      const bag = `${item.title} ${item.text} ${item.benefit || ''} ${item.source || ''} ${item.mention || ''}`.toLowerCase();
+      return bag.includes(query.toLowerCase());
     }
 
     function renderCards() {
-      const items = adhkar[state.currentTab] || [];
-      const visible = items.filter(item => {
-        if (state.search && !itemMatches(item, state.search)) return false;
-        if (state.onlyIncomplete && isComplete(state.currentTab, item)) return false;
+      const list = collections[state.currentTab] || [];
+      const filtered = list.filter(item => {
+        if (state.search && !matches(item, state.search)) return false;
+        if (state.onlyRemaining && isDone(state.currentTab, item)) return false;
         return true;
       });
 
-      grid.innerHTML = '';
-      emptyState.hidden = visible.length !== 0;
+      cards.innerHTML = '';
+      emptyState.hidden = filtered.length !== 0;
+      emptyState.textContent = state.currentTab === 'quran'
+        ? 'قسم القرآن سيُضاف لاحقًا.'
+        : 'لا توجد نتائج مطابقة لهذا البحث.';
 
-      if (!items.length) {
-        emptyState.hidden = false;
-        emptyState.textContent = 'هذا القسم قيد الإضافة في النسخة القادمة.';
-        return;
-      }
-
-      visible.forEach(item => {
-        const current = getItemCountValue(state.currentTab, item.id);
-        const complete = current >= item.count;
-
+      filtered.forEach(item => {
+        const remaining = remainingFor(state.currentTab, item);
+        const done = remaining === 0;
         const card = document.createElement('article');
         card.className = 'card';
+
+        const bigStep = item.count >= 20 ? 10 : item.count >= 10 ? 5 : 0;
+
         card.innerHTML = `
           <div class="card-top">
-            <div class="title-block">
+            <div class="title">
               <h3>${item.title}</h3>
-              <div class="meta">
-                <span class="chip">العدد المطلوب: ${item.count}</span>
-                ${item.source ? `<span class="chip gold">${item.source}</span>` : ''}
-                ${complete ? `<span class="chip success">مكتمل</span>` : ''}
+              <p>${item.source || 'بدون مصدر ظاهر في البطاقة'}</p>
+              <div class="chips">
+                <span class="chip">العدد الأصلي: ${item.count}</span>
+                ${item.mention ? `<span class="chip gold">${item.mention}</span>` : ''}
+                ${done ? `<span class="chip success">مكتمل</span>` : ''}
               </div>
             </div>
-            <div class="count-pill"><span>العداد</span>${Math.min(current, item.count)} / ${item.count}</div>
+            <div class="count-box">
+              <small>المتبقّي</small>
+              <span>${remaining}</span>
+            </div>
           </div>
 
-          <div class="zikr-text">${item.text}</div>
+          <div class="zikr">${item.text.replace(/\n/g, '<br>')}</div>
           ${item.benefit ? `<div class="benefit"><strong>الفائدة:</strong> ${item.benefit}</div>` : ''}
-          ${item.hadith ? `<div class="chip gold" style="margin-bottom: 14px; display: inline-flex;">🕋 ${item.hadith}</div>` : ''}
 
           <div class="actions">
-            <div class="actions-right">
-              <button class="action-btn primary" data-action="count">${complete ? 'تمّ الإنجاز' : 'عدّ الذكر'}</button>
-              <button class="action-btn ${complete ? 'success' : ''}" data-action="complete">${complete ? 'إلغاء الإكمال' : 'تعليم كمكتمل'}</button>
+            <div class="cluster">
+              <button class="mini primary" type="button" data-action="minus1">تمّت مرّة</button>
+              ${bigStep ? `<button class="mini" type="button" data-action="minusBig">-${bigStep}</button>` : ''}
+              <button class="mini success" type="button" data-action="complete">إنهاء</button>
             </div>
-            <div class="actions-left">
-              <button class="mini-btn" data-action="listen">${state.speakingId === item.id ? 'إيقاف' : 'استماع'}</button>
-              <button class="mini-btn" data-action="copy">نسخ</button>
+            <div class="cluster">
+              <button class="mini" type="button" data-action="undo">تراجع</button>
+              <button class="mini" type="button" data-action="copy">نسخ</button>
+              <button class="mini ${state.speakingId === item.id ? 'danger' : ''}" type="button" data-action="listen">${state.speakingId === item.id ? 'إيقاف' : 'استماع'}</button>
             </div>
           </div>
         `;
 
-        card.querySelector('[data-action="count"]').addEventListener('click', () => {
-          if (current < item.count) {
-            setItemCountValue(state.currentTab, item.id, current + 1);
-            if (current + 1 === item.count) showToast(`أحسنت، أتممت: ${item.title}`);
-          } else {
-            showToast('هذا الذكر مكتمل بالفعل.');
-          }
+        card.querySelector('[data-action="minus1"]').addEventListener('click', () => {
+          if (remaining <= 0) return showToast('هذا الذكر مكتمل بالفعل.');
+          setRemaining(state.currentTab, item, remaining - 1);
+          if (remaining - 1 === 0) showToast(`أحسنت، اكتمل: ${item.title}`);
           render();
         });
+
+        if (bigStep) {
+          card.querySelector('[data-action="minusBig"]').addEventListener('click', () => {
+            if (remaining <= 0) return showToast('هذا الذكر مكتمل بالفعل.');
+            setRemaining(state.currentTab, item, remaining - bigStep);
+            render();
+          });
+        }
 
         card.querySelector('[data-action="complete"]').addEventListener('click', () => {
-          setItemCountValue(state.currentTab, item.id, complete ? 0 : item.count);
+          setRemaining(state.currentTab, item, 0);
+          showToast(`تم تعليم "${item.title}" كمكتمل.`);
           render();
         });
 
-        card.querySelector('[data-action="listen"]').addEventListener('click', () => speakText(item.text, item.id));
-        card.querySelector('[data-action="copy"]').addEventListener('click', () => copyText(item.text));
+        card.querySelector('[data-action="undo"]').addEventListener('click', () => {
+          if (remaining >= item.count) return showToast('العدد عاد لأقصى قيمة بالفعل.');
+          setRemaining(state.currentTab, item, remaining + 1);
+          render();
+        });
 
-        grid.appendChild(card);
+        card.querySelector('[data-action="copy"]').addEventListener('click', () => copyText(item.text));
+        card.querySelector('[data-action="listen"]').addEventListener('click', () => speak(item.text, item.id));
+
+        cards.appendChild(card);
       });
     }
 
-    function updateHeaderStats() {
-      const stats = completionStats(state.currentTab);
-      progressBar.style.width = `${stats.percent}%`;
-      progressLabel.textContent = `${stats.percent}%`;
-      completedLabel.textContent = `${stats.done} / ${stats.total}`;
-      currentModeLabel.textContent = modeLabel(state.currentTab);
-      todayLabel.textContent = formatToday();
-    }
-
-    function updateAutoButton() {
-      toggleAutoBtn.textContent = state.autoMode ? 'الوضع التلقائي: مفعّل' : 'الوضع التلقائي: يدوي';
-    }
-
     function render() {
-      if (state.autoMode) state.currentTab = detectModeByTime();
-      document.documentElement.style.setProperty('--font-scale', state.fontScale);
-      localStorage.setItem('reetal-font-scale', state.fontScale.toString());
-      updateAutoButton();
+      if (state.autoMode) state.currentTab = detectByTime();
       renderTabs();
       renderCards();
-      updateHeaderStats();
+      updateHeader();
     }
 
     searchInput.addEventListener('input', e => {
       state.search = e.target.value.trim();
       renderCards();
-      updateHeaderStats();
     });
 
-    onlyIncomplete.addEventListener('change', e => {
-      state.onlyIncomplete = e.target.checked;
+    onlyRemaining.addEventListener('change', e => {
+      state.onlyRemaining = e.target.checked;
       renderCards();
-      updateHeaderStats();
     });
 
-    document.getElementById('increaseFont').addEventListener('click', () => {
-      state.fontScale = Math.min(1.25, +(state.fontScale + 0.05).toFixed(2));
+    document.getElementById('fontUp').addEventListener('click', () => {
+      state.fontScale = Math.min(1.22, +(state.fontScale + 0.05).toFixed(2));
       render();
     });
 
-    document.getElementById('decreaseFont').addEventListener('click', () => {
-      state.fontScale = Math.max(0.9, +(state.fontScale - 0.05).toFixed(2));
+    document.getElementById('fontDown').addEventListener('click', () => {
+      state.fontScale = Math.max(0.92, +(state.fontScale - 0.05).toFixed(2));
       render();
     });
 
@@ -1022,11 +1269,11 @@
       render();
     });
 
-    document.getElementById('resetToday').addEventListener('click', () => {
-      if (!confirm('هل تريد مسح عدادات اليوم للقسم الحالي؟')) return;
+    document.getElementById('resetCurrent').addEventListener('click', () => {
+      if (!confirm('هل تريد إعادة أعداد القسم الحالي إلى البداية؟')) return;
       localStorage.removeItem(storageKey(state.currentTab));
       render();
-      showToast('تمت إعادة تعيين عدادات اليوم.');
+      showToast('تمت إعادة ضبط القسم الحالي.');
     });
 
     setInterval(() => {
